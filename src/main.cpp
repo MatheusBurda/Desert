@@ -3,7 +3,7 @@
 #include <iostream>
 
 int main() {
-    Math::CoordF pos1(50.45f, 100.0f);
+    Math::CoordF pos1(100.45f, 100.0f);
     Math::CoordF pos2(300.0f, 200.10f);
     Math::Coord<float> pos3;
 
