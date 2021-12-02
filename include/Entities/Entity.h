@@ -29,7 +29,7 @@ namespace Entities {
 
         ID getId() const;
 
-        virtual void render() = 0;
+        virtual void render();
 
         virtual void update(float dt) = 0;
 

@@ -24,5 +24,9 @@ namespace Entities {
     ID Entity::getId() const {
         return id;
     }
+
+    void Entity::render(){
+        
+    }
     
 }

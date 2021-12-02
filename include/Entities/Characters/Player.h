@@ -11,6 +11,10 @@ namespace Entities {
         public:
             Player();
             ~Player();
+
+            void update(float dt);
+
+            void initiallize();
         };
 
     }

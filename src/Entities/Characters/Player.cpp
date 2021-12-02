@@ -1,9 +1,21 @@
 #include "Entities/Characters/Player.h"
 
-namespace Characters {
-    Player::Player() {
+namespace Entities {
+
+    namespace Characters {
+
+        Player::Player() {
+        }
+
+        Player::~Player() {
+        }
+
+        void Player::update(float dt) {
+        }
+
+        void Player::initiallize() {
+        }
+
     }
 
-    Player::~Player() {
-    }
 }

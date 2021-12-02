@@ -7,6 +7,6 @@ Game::Game() {
 Game::~Game() {
 }
 
-void exec(){
+void Game::exec(){
     
 }

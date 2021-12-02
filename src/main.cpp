@@ -1,7 +1,7 @@
 #include "Game.h"
 
 int main() {
-    Game Desert();
+    Game Desert;
 
     return 0;
 }
