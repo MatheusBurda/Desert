@@ -16,23 +16,39 @@ namespace Managers {
         sf::Clock clock;
         static float dt;
 
-    public:
+        /* Singleton design pattern */
+        static Managers::Graphics* instance;
         Graphics();
+
+    public:
         ~Graphics();
 
+        static Graphics* getInstance();
+
         void render(sf::RectangleShape* body);
+
         void render(sf::Text* text);
+
         void display();
+
         void clear();
-        sf::RenderWindow* getWindow() const;
+
         bool isWindowOpen() const;
+
         void closeWindow();
+
         void handleWindowResize();
+
         sf::Vector2u getWindowSize() const;
+
         void centerView(Math::CoordF pos);
+
         sf::Texture* loadTexture(const char* path);
+
         sf::Font* getFont();
+
         void updateDeltaTime();
+
     };
 
 } // namespace Managers

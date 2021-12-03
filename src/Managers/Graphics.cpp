@@ -10,13 +10,24 @@
 
 namespace Managers {
 
+    /* Singleton design pattern - Only one instance will be created */
+    Graphics* Graphics::instance = NULL;
+
+    /* Returns a pointer to the Graphics. */
+    Graphics* Graphics::getInstance() {
+        if (instance == NULL) {
+            instance = new Graphics();
+        }
+        return instance;
+    }
+
     float Graphics::dt = 0;
 
     Graphics::Graphics() :
-    window(new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "king++")),
+    window(new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Desert")),
     view(sf::Vector2f(WIDTH / 2, HEIGHT / 2), sf::Vector2f(WIDTH, HEIGHT)),
     texturesMap(),
-    clock(){
+    clock() {
         font = NULL;
     }
 
@@ -49,11 +60,6 @@ namespace Managers {
     void Graphics::clear() {
         if (isWindowOpen())
             window->clear();
-    }
-
-    /* Returns pointer to the window. */
-    sf::RenderWindow* Graphics::getWindow() const {
-        return window;
     }
 
     /* Returns if the window is open. */
@@ -120,7 +126,7 @@ namespace Managers {
     }
 
     /* Update the static dt timer */
-    void Graphics::updateDeltaTime(){
+    void Graphics::updateDeltaTime() {
         dt = clock.getElapsedTime().asSeconds();
         clock.restart();
     }
