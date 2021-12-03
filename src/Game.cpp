@@ -1,12 +1,22 @@
 #include "Game.h"
 
-Game::Game() {
+using namespace Managers;
+
+Game::Game() :
+pGraphicManager() {
     exec();
 }
 
 Game::~Game() {
 }
 
-void Game::exec(){
-    
+void Game::exec() {
+    while (pGraphicManager.isWindowOpen()) {
+        pGraphicManager.updateDeltaTime();
+        pGraphicManager.clear();
+
+        /* UPDATE ALL */
+
+        pGraphicManager.display();
+    }
 }
