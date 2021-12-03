@@ -2,8 +2,12 @@
 
 using namespace Managers;
 
+Managers::Graphics* Game::pGraphicManager = NULL;
+
 Game::Game() :
-pGraphicManager() {
+graphicManager() {
+    pGraphicManager = &graphicManager;
+
     exec();
 }
 
@@ -11,12 +15,12 @@ Game::~Game() {
 }
 
 void Game::exec() {
-    while (pGraphicManager.isWindowOpen()) {
-        pGraphicManager.updateDeltaTime();
-        pGraphicManager.clear();
+    while (graphicManager.isWindowOpen()) {
+        graphicManager.updateDeltaTime();
+        graphicManager.clear();
 
         /* UPDATE ALL */
 
-        pGraphicManager.display();
+        graphicManager.display();
     }
 }
