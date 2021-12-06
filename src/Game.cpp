@@ -17,6 +17,7 @@ void Game::exec() {
         pGraphicManager->clear();
 
         /* UPDATE ALL */
+        /* Render ALL*/
 
         pGraphicManager->display();
     }
