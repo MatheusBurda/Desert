@@ -1,11 +1,14 @@
 #include "Entities/Entity.h"
 
+using namespace Managers;
+
 namespace Entities {
-    
+
     Entity::Entity(Math::CoordF position, Math::CoordF size, ID id) :
     position(position),
     size(size),
-    id(id) { }
+    id(id),
+    sprite() { }
 
     Entity::~Entity() { }
 
@@ -25,8 +28,8 @@ namespace Entities {
         return id;
     }
 
-    void Entity::render(){
-        
+    void Entity::render() {
+        sprite.render();
     }
-    
+
 }

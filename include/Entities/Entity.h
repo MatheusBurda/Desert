@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Math/CoordTL.h"
+#include "../Managers/Animation.h"
 
 namespace Entities {
 
@@ -11,10 +12,12 @@ namespace Entities {
     };
 
     class Entity {
-    private:
+    protected:
         Math::CoordF position;
         Math::CoordF size;
         ID id;
+
+        Managers::AnimationManager sprite;
 
     public:
         Entity(Math::CoordF position = Math::CoordF(0.f, 0.f), Math::CoordF size = Math::CoordF(0.f, 0.f), ID id = empty);

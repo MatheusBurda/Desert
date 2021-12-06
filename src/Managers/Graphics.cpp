@@ -21,14 +21,13 @@ namespace Managers {
         return instance;
     }
 
-    float Graphics::dt = 0;
-
     Graphics::Graphics() :
     window(new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Desert")),
     view(sf::Vector2f(WIDTH / 2, HEIGHT / 2), sf::Vector2f(WIDTH, HEIGHT)),
     texturesMap(),
     clock() {
         font = NULL;
+        clock.restart();
     }
 
     Graphics::~Graphics() {
@@ -60,6 +59,18 @@ namespace Managers {
     void Graphics::clear() {
         if (isWindowOpen())
             window->clear();
+
+
+        sf::Event event;
+        while (window->pollEvent(event)) {
+            switch (event.type) {
+                case sf::Event::Closed:
+                    closeWindow();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     /* Returns if the window is open. */
@@ -126,9 +137,11 @@ namespace Managers {
     }
 
     /* Update the static dt timer */
-    void Graphics::updateDeltaTime() {
-        dt = clock.getElapsedTime().asSeconds();
+    float Graphics::updateDeltaTime() {
+        float dt = clock.getElapsedTime().asSeconds();
         clock.restart();
+
+        return dt;
     }
 
 } // namespace Managers
