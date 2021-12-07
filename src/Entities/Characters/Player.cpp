@@ -1,5 +1,5 @@
 #include "Entities/Characters/Player.h"
-#include "Managers/Animation.h"
+#include "GraphicalElements/Animation.h"
 
 namespace Entities {
 
@@ -14,13 +14,20 @@ namespace Entities {
         Player::~Player() { }
 
         void Player::update(float dt) {
-            sprite.update(Managers::Animation_ID::attack, false, position, dt);
+            sprite.update(GraphicalElements::Animation_ID::walk, true, position, dt);
+            position.x = position.x + 300 * dt;
         }
 
         void Player::initiallize() {
-            sprite.addNewAnimation(Managers::Animation_ID::idle, "./assets/Mummy/Mummy_idle.png", 4);
-            sprite.addNewAnimation(Managers::Animation_ID::walk, "./assets/Mummy/Mummy_walk.png", 6);
-            sprite.addNewAnimation(Managers::Animation_ID::attack, "./assets/Mummy/Mummy_attack.png", 6);
+            /* sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, "./assets/Mummy/Mummy_idle.png", 4);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, "./assets/Mummy/Mummy_walk.png", 6);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, "./assets/Mummy/Mummy_attack.png", 6); */
+            /* sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, "./assets/Snake/Snake_idle.png", 4);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, "./assets/Snake/Snake_walk.png", 4);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, "./assets/Snake/Snake_attack.png", 6); */
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, "./assets/Hyena/Hyena_idle.png", 4);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, "./assets/Hyena/Hyena_walk.png", 6);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, "./assets/Hyena/Hyena_attack.png", 6);
         }
 
     }

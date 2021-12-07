@@ -1,11 +1,11 @@
 #pragma once
 
 #include "../Math/CoordTL.h"
-#include "Graphics.h"
+#include "../Managers/Graphics.h"
 #include <SFML/Graphics.hpp>
 #include <map>
 
-namespace Managers {
+namespace GraphicalElements {
 
     enum Animation_ID {
         walk = 0,
@@ -13,9 +13,9 @@ namespace Managers {
         attack = 2
     };
 
-    class AnimationManager {
+    class Animation {
     private:
-        class Animation {
+        class SingleAnimation {
         private:
             const unsigned int imageCount;
             unsigned int currentImage;
@@ -25,21 +25,22 @@ namespace Managers {
             static const float switchTime;
 
         public:
-            Animation(const char* path, const unsigned int imageCount) :
+            SingleAnimation(const char* path, const unsigned int imageCount) :
             imageCount(imageCount),
             currentImage(0),
             texture(pGraphicM->loadTexture(path)),
             totalTime(0.0f),
             rectSize() {
                 if (texture == NULL) {
-                    std::cout << "ERROR: loading texture failed on Animation::Animation()." << std::endl;
+                    std::cout << "ERROR: loading texture failed on SingleAnimation::SingleAnimation()." << std::endl;
                     exit(1);
                 }
 
                 rectSize.width = texture->getSize().x / float(imageCount);
                 rectSize.height = texture->getSize().y;
             }
-            ~Animation() { }
+            
+            ~SingleAnimation() { }
 
             void update(float dt, bool facingLeft) {
                 /* Based on this tutorial --> https://www.youtube.com/watch?v=Aa8bXSq5LDE&t=196s */
@@ -74,14 +75,14 @@ namespace Managers {
 
     private:
         sf::RectangleShape body;
-        std::map<Animation_ID, Animation*> animationMap;
+        std::map<Animation_ID, SingleAnimation*> animationMap;
         Animation_ID currentID;
 
         static Managers::Graphics* pGraphicM;
 
     public:
-        AnimationManager();
-        ~AnimationManager();
+        Animation();
+        ~Animation();
 
         void addNewAnimation(Animation_ID id, const char* path, unsigned int imageCount);
         void update(Animation_ID id, bool facingLeft, Math::CoordF position, float dt);
