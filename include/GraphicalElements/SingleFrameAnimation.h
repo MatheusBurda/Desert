@@ -11,7 +11,7 @@ namespace GraphicalElements {
         sf::RectangleShape body;
 
     public:
-        SingleFrameAnimation(const char* path, Math::CoordF position, Math::CoordF size);
+        SingleFrameAnimation(const char* path, Math::CoordF position, Math::CoordF size, float scale);
         ~SingleFrameAnimation();
 
         void update(Math::CoordF position);

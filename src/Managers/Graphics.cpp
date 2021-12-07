@@ -4,7 +4,7 @@
 #include <iostream>
 
 #define FONT_PATH "./assets/Fonts/minecraft-ten.ttf"
-#define WIDTH 1200
+#define WIDTH 1280
 #define HEIGHT 720
 #define FRAME_RATE 100
 
