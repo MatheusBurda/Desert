@@ -12,6 +12,7 @@ namespace Entities {
         class Player : public Entity {
         private:
             const bool isPlayer1;
+            float time;
 
         public:
             Player(Math::CoordF position = Math::CoordF(0.f, 0.f), bool isPLayer1 = true);
