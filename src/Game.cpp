@@ -3,9 +3,11 @@
 using namespace Managers;
 
 Game::Game() :
-pGraphicManager(Graphics::getInstance()) ,
-p1(Math::CoordF(200.f, 400.f), true),
-background("./assets/Background/Background.png", Math::CoordF(0.0f, 0.0f), Math::CoordF(1280,720), 1){
+pGraphicManager(Graphics::getInstance()),
+p1(new Entities::Characters::Player(Math::CoordF(200.f, 400.f), true)),
+background("./assets/Background/Background.png", Math::CoordF(0.0f, 0.0f), Math::CoordF(1280, 720), 1) {
+
+    list.addEntity(p1);
 
     exec();
 }
@@ -20,11 +22,12 @@ void Game::exec() {
         dt = pGraphicManager->updateDeltaTime();
         pGraphicManager->clear();
 
-        /* UPDATE ALL */
-        p1.update(dt);
-        /* Render ALL*/
         background.render();
-        p1.render();
+
+        for (unsigned int i = 0; i < list.getSize(); i++) {
+            list[i]->update(dt);
+            list[i]->render();
+        }
 
         pGraphicManager->display();
     }
