@@ -4,10 +4,12 @@
 
 namespace GraphicalElements {
 
+    Managers::Graphics* SingleFrameAnimation::pGraphicM = Managers::Graphics::getInstance();
+
     SingleFrameAnimation::SingleFrameAnimation(const char* path, Math::CoordF position, Math::CoordF size, float scale) :
     texture(NULL),
     body(sf::Vector2f(size.x, size.y)) {
-        texture = Managers::Graphics::getInstance()->loadTexture(path);
+        texture = pGraphicM->loadTexture(path);
 
         body.setPosition(sf::Vector2f(position.x, position.y));
         body.setScale(sf::Vector2f(scale, scale));
@@ -22,7 +24,7 @@ namespace GraphicalElements {
     }
 
     void SingleFrameAnimation::render() {
-        Managers::Graphics::getInstance()->render(&body);
+        pGraphicM->render(&body);
     }
 
 } // namespace GraphicalElements

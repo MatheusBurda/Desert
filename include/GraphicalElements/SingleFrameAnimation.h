@@ -10,6 +10,8 @@ namespace GraphicalElements {
         sf::Texture* texture;
         sf::RectangleShape body;
 
+        static Managers::Graphics* pGraphicM;
+
     public:
         SingleFrameAnimation(const char* path, Math::CoordF position, Math::CoordF size, float scale);
         ~SingleFrameAnimation();
