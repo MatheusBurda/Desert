@@ -1,15 +1,16 @@
 #pragma once
 
-#include "../Entity.h"
+#include "Entities/Characters/Character.h"
 
-#define PLAYER_SIZE_X 100.0f
-#define PLAYER_SIZE_Y 100.0f
+#define PLAYER_SIZE_Y 84.0f
+#define PLAYER_SIZE_X 32.0f
+#define PLAYER_LIFE 100
 
 namespace Entities {
 
     namespace Characters {
 
-        class Player : public Entity {
+        class Player : public Character {
         private:
             const bool isPlayer1;
             float time;
@@ -20,7 +21,10 @@ namespace Entities {
 
             void update(float dt);
 
-            void initiallize();
+            void initialize();
+
+            void collide(Entity* otherEntity, Math::CoordF intersect);
+
         };
 
     }

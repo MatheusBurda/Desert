@@ -17,8 +17,6 @@ namespace Entities {
         Math::CoordF size;
         ID id;
 
-        GraphicalElements::Animation* sprite;
-
     public:
         Entity(Math::CoordF position = Math::CoordF(0.f, 0.f), Math::CoordF size = Math::CoordF(0.f, 0.f), ID id = empty);
 
@@ -32,11 +30,14 @@ namespace Entities {
 
         ID getId() const;
 
-        virtual void render();
+        virtual void render() = 0;
 
         virtual void update(float dt) = 0;
 
-        virtual void initiallize() = 0;
+        virtual void initialize() = 0;
+
+        virtual void collide(Entity* otherEntity, Math::CoordF intersect) = 0;
+
     };
 
 }

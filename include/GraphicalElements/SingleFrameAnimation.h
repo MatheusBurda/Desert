@@ -9,8 +9,10 @@ namespace GraphicalElements {
         sf::Texture* texture;
 
     public:
-        SingleFrameAnimation(const char* path, Math::CoordF position, Math::CoordF size, float scale);
+        SingleFrameAnimation();
         ~SingleFrameAnimation();
+
+        void initialize(const char* path, Math::CoordF position, Math::CoordF size);
 
         void update(Math::CoordF position);
     };

@@ -15,15 +15,33 @@ namespace List {
         list.push(pEntity);
     }
 
-    void EntityList::removeEntity(Entities::Entity* pEntity) {
+    Entities::Entity* EntityList::removeEntity(Entities::Entity* pEntity) {
         if (pEntity == NULL)
             std::cout << "Pointer to entity NULL on removeEntity" << std::endl;
 
-        list.pop(pEntity);
+        return list.pop(pEntity);
     }
 
-    void EntityList::removeEntity(unsigned int index) {
-        list.pop(index);
+    Entities::Entity* EntityList::removeEntity(unsigned int index) {
+        return list.pop(index);
+    }
+
+    void EntityList::deleteEntity(Entities::Entity* pEntity) {
+        Entities::Entity* tmp = NULL;
+
+        tmp = list.pop(pEntity);
+
+        if (tmp)
+            delete (tmp);
+    }
+
+    void EntityList::deleteEntity(unsigned int index) {
+        Entities::Entity* tmp = NULL;
+
+        tmp = list.pop(index);
+
+        if (tmp)
+            delete (tmp);
     }
 
     unsigned int EntityList::getSize() {

@@ -5,9 +5,24 @@ using namespace Managers;
 Game::Game() :
 pGraphicManager(Graphics::getInstance()),
 p1(new Entities::Characters::Player(Math::CoordF(200.f, 400.f), true)),
-background("./assets/Background/Background.png", Math::CoordF(0.0f, 0.0f), Math::CoordF(1280, 720), 1) {
+background(),
+staticEntitiesList(),
+movingEntitiesList(),
+collisionManager(&movingEntitiesList, &staticEntitiesList) {
 
-    list.addEntity(p1);
+    background.initialize("./assets/Background/Background.png", Math::CoordF(1280/2, 720/2), Math::CoordF(1280, 720));
+
+    Entities::Entity* tmp;
+    tmp = new Entities::Obstacles::Platform(Math::CoordF(200.f, 600.f));
+    staticEntitiesList.addEntity(tmp);
+    tmp = new Entities::Obstacles::Platform(Math::CoordF(296.f, 600.f));
+    staticEntitiesList.addEntity(tmp);
+    tmp = new Entities::Obstacles::Platform(Math::CoordF(392.f, 600.f));
+    staticEntitiesList.addEntity(tmp);
+    tmp = new Entities::Obstacles::Platform(Math::CoordF(488.f, 500.f));
+    staticEntitiesList.addEntity(tmp);
+
+    movingEntitiesList.addEntity(p1);
 
     exec();
 }
@@ -24,9 +39,22 @@ void Game::exec() {
 
         background.render();
 
-        for (unsigned int i = 0; i < list.getSize(); i++) {
-            list[i]->update(dt);
-            list[i]->render();
+        for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++) {
+            movingEntitiesList[i]->update(dt);
+        }
+
+        /* for (unsigned int i = 0; i < staticEntitiesList.getSize(); i++) {
+            staticEntitiesList[i]->update(dt);
+        } */
+
+        collisionManager.collide();
+
+        for (unsigned int i = 0; i < staticEntitiesList.getSize(); i++) {
+            staticEntitiesList[i]->render();
+        }
+
+        for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++) {
+            movingEntitiesList[i]->render();
         }
 
         pGraphicManager->display();

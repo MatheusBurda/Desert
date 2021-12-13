@@ -6,9 +6,7 @@ namespace GraphicalElements {
 
     MultiFrameAnimation::MultiFrameAnimation() :
     animationMap(),
-    currentID(Animation_ID::walk) { 
-        body.setScale(sf::Vector2f(3,3));
-    }
+    currentID(Animation_ID::idle) { }
 
     MultiFrameAnimation::~MultiFrameAnimation() {
         std::map<Animation_ID, SingleAnimation*>::iterator it;
@@ -48,4 +46,4 @@ namespace GraphicalElements {
         body.setTexture(animationMap[currentID]->getTexture());
     }
 
-} 
+}
