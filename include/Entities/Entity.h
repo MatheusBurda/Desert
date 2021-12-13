@@ -17,7 +17,7 @@ namespace Entities {
         Math::CoordF size;
         ID id;
 
-        GraphicalElements::Animation sprite;
+        GraphicalElements::Animation* sprite;
 
     public:
         Entity(Math::CoordF position = Math::CoordF(0.f, 0.f), Math::CoordF size = Math::CoordF(0.f, 0.f), ID id = empty);

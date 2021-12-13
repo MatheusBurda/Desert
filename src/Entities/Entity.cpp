@@ -8,7 +8,7 @@ namespace Entities {
     position(position),
     size(size),
     id(id),
-    sprite() { }
+    sprite(NULL) { }
 
     Entity::~Entity() { }
 
@@ -29,7 +29,7 @@ namespace Entities {
     }
 
     void Entity::render() {
-        sprite.render();
+        sprite->render();
     }
 
 }

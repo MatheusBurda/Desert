@@ -1,23 +1,18 @@
 #pragma once
 
-#include "Math/CoordTL.h"
-#include <SFML/Graphics.hpp>
+#include "GraphicalElements/Animation.h"
 
 namespace GraphicalElements {
 
-    class SingleFrameAnimation {
+    class SingleFrameAnimation : public Animation {
     private:
         sf::Texture* texture;
-        sf::RectangleShape body;
-
-        static Managers::Graphics* pGraphicM;
 
     public:
         SingleFrameAnimation(const char* path, Math::CoordF position, Math::CoordF size, float scale);
         ~SingleFrameAnimation();
 
         void update(Math::CoordF position);
-        void render();
     };
 
 } // namespace GraphicalElements
