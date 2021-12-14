@@ -21,20 +21,24 @@ namespace Entities {
                 active = false;
         }
 
-        void Character::moveOnCollision(Math::CoordF intersect, Math::CoordF otherPos) {
+        void Character::moveOnCollision(Math::CoordF intersect, Entities::Entity* other) {
+            Math::CoordF otherPos = other->getPosition();
+            Math::CoordF otherVelo = static_cast<Entities::Characters::Character*>(other)->getVelocity();
             if (intersect.x > intersect.y) { // Colision on x direction
                 if (position.x < otherPos.x)
                     position.x += intersect.x;
                 else
                     position.x -= intersect.x;
-                velocity.x = 0.0f;
+                velocity.x *= -1.0f;
             }
 
-            else {                          // Colision on y direction
+            else { // Colision on y direction
                 if (position.y < otherPos.y)
                     position.y += intersect.y;
+
                 else
                     position.y -= intersect.y;
+
                 velocity.y = 0.0f;
             }
         }

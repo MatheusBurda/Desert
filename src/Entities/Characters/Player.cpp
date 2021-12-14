@@ -11,7 +11,7 @@ namespace Entities {
         isPlayer1(isPlayer1) {
             initialize();
             time = 0;
-            velocity.x = 100;
+            velocity.x = 0;
         }
 
         Player::~Player() { }
@@ -19,13 +19,13 @@ namespace Entities {
         void Player::update(float dt) {
             time += dt;
 
-            position.x = position.x + velocity.x * dt;
-            velocity.y = 300 * dt + velocity.y;
-            position.y = velocity.y * dt + position.y;
+            position.x += velocity.x * dt;
+            velocity.y += 9.8 * dt;
+            position.y += velocity.y * dt;
 
             facingLeft = velocity.x >= 0.0f ? true : false;
 
-            if (velocity.x > 0) {
+            if (abs(velocity.x)> 0) {
                 sprite.update(GraphicalElements::Animation_ID::walk, isFacingLeft(), position, dt);
             }
 
@@ -45,7 +45,8 @@ namespace Entities {
         void Player::collide(Entity* otherEntity, Math::CoordF intersect) {
             switch (otherEntity->getId()) {
             case ID::platform:
-                moveOnCollision(intersect, otherEntity->getPosition());
+                // moveOnCollision(intersect, otherEntity->getPosition());
+                moveOnCollision(intersect, otherEntity);
                 break;
 
             default:

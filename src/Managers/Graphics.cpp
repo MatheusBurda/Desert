@@ -6,7 +6,6 @@
 #define FONT_PATH "./assets/Fonts/minecraft-ten.ttf"
 #define WIDTH 1280
 #define HEIGHT 720
-#define FRAME_RATE 100
 
 namespace Managers {
 
@@ -24,10 +23,8 @@ namespace Managers {
     Graphics::Graphics() :
     window(new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Desert")),
     view(sf::Vector2f(WIDTH / 2, HEIGHT / 2), sf::Vector2f(WIDTH, HEIGHT)),
-    texturesMap(),
-    clock() {
+    texturesMap(){
         font = NULL;
-        clock.restart();
     }
 
     Graphics::~Graphics() {
@@ -60,15 +57,14 @@ namespace Managers {
         if (isWindowOpen())
             window->clear();
 
-
         sf::Event event;
         while (window->pollEvent(event)) {
             switch (event.type) {
-                case sf::Event::Closed:
-                    closeWindow();
-                    break;
-                default:
-                    break;
+            case sf::Event::Closed:
+                closeWindow();
+                break;
+            default:
+                break;
             }
         }
     }
@@ -134,14 +130,6 @@ namespace Managers {
             }
         }
         return font;
-    }
-
-    /* Update the static dt timer */
-    float Graphics::updateDeltaTime() {
-        float dt = clock.getElapsedTime().asSeconds();
-        clock.restart();
-
-        return dt;
     }
 
 } // namespace Managers

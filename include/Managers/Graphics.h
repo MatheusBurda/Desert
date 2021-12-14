@@ -13,7 +13,7 @@ namespace Managers {
         sf::View view;
         std::map<const char*, sf::Texture*> texturesMap;
         sf::Font* font;
-        sf::Clock clock;
+        
 
         /* Singleton design pattern */
         static Managers::Graphics* instance;

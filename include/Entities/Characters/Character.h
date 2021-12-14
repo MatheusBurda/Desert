@@ -19,7 +19,7 @@ namespace Entities {
 
             void receiveDamage(const int damage);
 
-            void moveOnCollision(Math::CoordF intersect, Math::CoordF otherPos);
+            void moveOnCollision(Math::CoordF intersect, Entities::Entity* other);
         };
 
     } // namespace Characters

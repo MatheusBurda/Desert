@@ -7,6 +7,8 @@
 #include "Managers/Collision.h"
 #include "Managers/Graphics.h"
 
+#define TICK_RATE 0.0078125
+
 class Game {
 private:
     Managers::Graphics* pGraphicManager;
@@ -15,10 +17,14 @@ private:
     List::EntityList staticEntitiesList;
     List::EntityList movingEntitiesList;
     Managers::Collision collisionManager;
+    sf::Clock clock;
+    float dt;
 
 public:
     Game();
     ~Game();
 
     void exec();
+
+    float updateDeltaTime();
 };
