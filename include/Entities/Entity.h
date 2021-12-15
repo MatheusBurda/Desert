@@ -2,6 +2,7 @@
 
 #include "../Math/CoordTL.h"
 #include "../GraphicalElements/Animation.h"
+#include "math.h"
 
 namespace Entities {
 

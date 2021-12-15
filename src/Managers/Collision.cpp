@@ -1,6 +1,7 @@
 #include "Managers/Collision.h"
 
 #include "Entities/MovingEntity.h"
+#include "math.h"
 
 namespace Managers {
 
@@ -29,8 +30,8 @@ namespace Managers {
                 centerDistance.x = ent2->getPosition().x - ent1->getPosition().x;
                 centerDistance.y = ent2->getPosition().y - ent1->getPosition().y;
 
-                intersect.x = abs(centerDistance.x) - (ent1->getSize().x / 2 + ent2->getSize().x / 2);
-                intersect.y = abs(centerDistance.y) - (ent1->getSize().y / 2 + ent2->getSize().y / 2);
+                intersect.x = fabs(centerDistance.x) - (ent1->getSize().x / 2 + ent2->getSize().x / 2);
+                intersect.y = fabs(centerDistance.y) - (ent1->getSize().y / 2 + ent2->getSize().y / 2);
 
                 if (intersect.x < 0.0f && intersect.y < 0.0f) { // Condition to collide...
                     ent2->collide(ent1, intersect);

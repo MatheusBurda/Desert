@@ -11,7 +11,7 @@ namespace Entities {
         isPlayer1(isPlayer1) {
             initialize();
             time = 0;
-            velocity.x = 0;
+            velocity.x = 100;
         }
 
         Player::~Player() { }
@@ -20,12 +20,12 @@ namespace Entities {
             time += dt;
 
             position.x += velocity.x * dt;
-            velocity.y += 9.8 * dt;
+            velocity.y += 900.8 * dt;
             position.y += velocity.y * dt;
 
             facingLeft = velocity.x >= 0.0f ? true : false;
 
-            if (abs(velocity.x)> 0) {
+            if (fabs(velocity.x)> 0) {
                 sprite.update(GraphicalElements::Animation_ID::walk, isFacingLeft(), position, dt);
             }
 
