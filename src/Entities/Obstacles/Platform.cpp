@@ -12,7 +12,7 @@ namespace Entities {
         Platform::~Platform() {
         }
 
-        void Platform::update(float dt) {
+        void Platform::update(const float dt) {
             sprite.update(position);
         }
 

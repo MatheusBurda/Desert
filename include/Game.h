@@ -6,6 +6,7 @@
 #include "List/EntityList.h"
 #include "Managers/Collision.h"
 #include "Managers/Graphics.h"
+#include "Entities/Characters/Enemies/Snake.h"
 
 #define TICK_RATE 0.0078125
 

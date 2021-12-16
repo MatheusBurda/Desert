@@ -17,7 +17,7 @@ namespace Entities {
             Platform(Math::CoordF position = Math::CoordF(0.f, 0.f));
             ~Platform();
 
-            void update(float dt);
+            void update(const float dt);
 
             void initialize();
 

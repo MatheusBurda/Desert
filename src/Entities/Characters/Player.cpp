@@ -16,24 +16,14 @@ namespace Entities {
 
         Player::~Player() { }
 
-        void Player::update(float dt) {
+        void Player::update(const float dt) {
             time += dt;
 
             position.x += velocity.x * dt;
             velocity.y += 900.8 * dt;
             position.y += velocity.y * dt;
 
-            facingLeft = velocity.x >= 0.0f ? true : false;
-
-            if (fabs(velocity.x)> 0) {
-                sprite.update(GraphicalElements::Animation_ID::walk, isFacingLeft(), position, dt);
-            }
-
-            else 
-                sprite.update(GraphicalElements::Animation_ID::idle, isFacingLeft(), position, dt);
-
-            // else
-                // sprite.update(GraphicalElements::Animation_ID::attack, isFacingLeft(), position, dt);
+            updateSprite(dt);
         }
 
         void Player::initialize() {
@@ -45,13 +35,25 @@ namespace Entities {
         void Player::collide(Entity* otherEntity, Math::CoordF intersect) {
             switch (otherEntity->getId()) {
             case ID::platform:
-                // moveOnCollision(intersect, otherEntity->getPosition());
                 moveOnCollision(intersect, otherEntity);
                 break;
 
             default:
                 break;
             }
+        }
+
+        void Player::updateSprite(const float dt) {
+            //if(isAtacking()) 
+                //sprite.update(GraphicalElements::Animation_ID::attack, isFacingLeft(), position, dt);
+
+            if (fabs(velocity.x) > 0) {
+                sprite.update(GraphicalElements::Animation_ID::walk, isFacingLeft(), position, dt);
+            }
+
+            else 
+                sprite.update(GraphicalElements::Animation_ID::idle, isFacingLeft(), position, dt);
+
         }
 
     }

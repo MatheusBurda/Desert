@@ -16,7 +16,7 @@ namespace Entities {
 
         void render();
 
-        virtual void update(float dt) = 0;
+        virtual void update(const float dt) = 0;
 
         virtual void initialize() = 0;
 

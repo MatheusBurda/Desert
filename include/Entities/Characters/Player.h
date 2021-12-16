@@ -19,11 +19,13 @@ namespace Entities {
             Player(Math::CoordF position = Math::CoordF(0.f, 0.f), bool isPLayer1 = true);
             ~Player();
 
-            void update(float dt);
+            void update(const float dt);
 
             void initialize();
 
             void collide(Entity* otherEntity, Math::CoordF intersect);
+
+            void updateSprite(const float dt);
 
         };
 

@@ -10,19 +10,26 @@ namespace Entities {
 
         namespace Enemies {
 
-            class Enemy : public Character{
+            class Enemy : public Character {
             private:
-                Player* pPlayer1;
-                Player* pPlayer2;
-
+                Player* pPlayer;
+                
             public:
-                Enemy(Math::CoordF position = Math::CoordF(0.f, 0.f), Math::CoordF size = Math::CoordF(0.f, 0.f), ID id = empty, int life = 1, Entities::Characters::Player* pP1 = NULL, Entities::Characters::Player* pP2 = NULL);
+                Enemy(Math::CoordF position = Math::CoordF(0.f, 0.f), Math::CoordF size = Math::CoordF(0.f, 0.f), ID id = empty, int life = 1, Entities::Characters::Player* pP = NULL);
+                
                 ~Enemy();
 
-                void setpPlayer1(Entities::Characters::Player* pP1);
-                void setpPlayer2(Entities::Characters::Player* pP2);
+                void setpPlayer(Entities::Characters::Player* pP);
 
-                Entities::Characters::Player* getNearestPlayer();
+                Math::CoordF getPlayerPosition();
+
+                virtual void update(const float dt) = 0;
+
+                virtual void initialize() = 0;
+
+                virtual void collide(Entity* otherEntity, Math::CoordF intersect) = 0;
+
+                virtual void updateSprite(const float dt) = 0;
 
             };
 

@@ -8,14 +8,29 @@ namespace Entities {
 
         namespace Enemies {
 
-            Enemy::Enemy(Math::CoordF position, Math::CoordF size, ID id, int life, Entities::Characters::Player* pP1, Entities::Characters::Player* pP2) :
+            Enemy::Enemy(Math::CoordF position, Math::CoordF size, ID id, int life, Entities::Characters::Player* pP) :
             Character(position, size, id, life),
-            pPlayer1(pP1),
-            pPlayer2(pP2){
-    
+            pPlayer(pP) {
             }
 
             Enemy::~Enemy() {
+                pPlayer = NULL;
+            }
+
+            Math::CoordF Enemy::getPlayerPosition(){
+                if (pPlayer == NULL) {
+                    std::cout << "ERROR: Pointer to Player NULL on Enemy::getPlayerPosition." << std::endl;
+                    return;
+                }
+                return pPlayer->getPosition();
+            }
+
+            void Enemy::setpPlayer(Entities::Characters::Player* pP) {
+                if (pP == NULL) {
+                    std::cout << "ERROR: Pointer to Player NULL on Enemy::setpPlayer." << std::endl;
+                    return;
+                }
+                pPlayer = pP;
             }
 
         } // namespace Enemies

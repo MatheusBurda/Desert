@@ -42,7 +42,7 @@ namespace GraphicalElements {
             
             ~SingleAnimation() { }
 
-            void update(float dt, bool facingLeft) {
+            void update(const float dt, bool facingLeft) {
                 /* Based on this tutorial --> https://www.youtube.com/watch?v=Aa8bXSq5LDE&t=196s */
                 totalTime += dt;
 
@@ -55,7 +55,7 @@ namespace GraphicalElements {
                     }
                 }
 
-                if (facingLeft) {
+                if (!facingLeft) {
                     rectSize.left = (currentImage + 1) * abs(rectSize.width);
                     rectSize.width = -abs(rectSize.width);
                 } //
@@ -82,7 +82,7 @@ namespace GraphicalElements {
         ~MultiFrameAnimation();
 
         void addNewAnimation(Animation_ID id, const char* path, unsigned int imageCount);
-        void update(Animation_ID id, bool facingLeft, Math::CoordF position, float dt);
+        void update(Animation_ID id, bool facingLeft, Math::CoordF position, const float dt);
     };
 
 } // namespace Managers

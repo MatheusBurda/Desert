@@ -9,7 +9,8 @@ namespace Entities {
     enum ID {
         empty = 0,
         player,
-        platform
+        platform,
+        snake
     };
 
     class Entity {
@@ -33,7 +34,7 @@ namespace Entities {
 
         virtual void render() = 0;
 
-        virtual void update(float dt) = 0;
+        virtual void update(const float dt) = 0;
 
         virtual void initialize() = 0;
 

@@ -33,7 +33,7 @@ namespace GraphicalElements {
         body.setOrigin(sf::Vector2f(rectSize.width, rectSize.height) / 2.0f);
     }
 
-    void MultiFrameAnimation::update(Animation_ID id, bool facingLeft, Math::CoordF position, float dt) {
+    void MultiFrameAnimation::update(Animation_ID id, bool facingLeft, Math::CoordF position, const float dt) {
         if (currentID != id) {
             currentID = id;
             animationMap[currentID]->reset();

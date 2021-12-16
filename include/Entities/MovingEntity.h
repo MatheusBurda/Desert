@@ -8,7 +8,6 @@ namespace Entities {
     class MovingEntity : public Entity {
     protected:
         Math::CoordF velocity;
-        bool facingLeft;
         bool active;
 
         GraphicalElements::MultiFrameAnimation sprite;
@@ -20,11 +19,13 @@ namespace Entities {
 
         virtual void render();
 
-        virtual void update(float dt) = 0;
+        virtual void update(const float dt) = 0;
 
         virtual void initialize() = 0;
 
         virtual void collide(Entity* otherEntity, Math::CoordF intersect) = 0;
+
+        virtual void updateSprite(const float dt) = 0;
 
         const bool isFacingLeft() const;
         

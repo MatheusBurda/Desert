@@ -15,6 +15,10 @@ collisionManager(&movingEntitiesList, &staticEntitiesList) {
     clock.restart();
     dt = 0;
 
+    movingEntitiesList.addEntity(p1);
+    
+    /* Cria plataformas */
+
     Entities::Entity* tmp;
     tmp = new Entities::Obstacles::Platform(Math::CoordF(200.f, 500.f));
     staticEntitiesList.addEntity(tmp);
@@ -37,91 +41,11 @@ collisionManager(&movingEntitiesList, &staticEntitiesList) {
     tmp = new Entities::Obstacles::Platform(Math::CoordF(1064.f, 500.f));
     staticEntitiesList.addEntity(tmp);
 
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(200.f, 500.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(296.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(392.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(488.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(584.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(680.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(776.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(872.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(968.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(1064.f, 500.f));
-    staticEntitiesList.addEntity(tmp);
 
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(200.f, 500.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(296.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(392.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(488.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(584.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(680.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(776.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(872.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(968.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(1064.f, 500.f));
-
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(200.f, 500.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(296.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(392.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(488.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(584.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(680.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(776.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(872.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(968.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(1064.f, 500.f));
-    staticEntitiesList.addEntity(tmp);
-
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(200.f, 500.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(296.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(392.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(488.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(584.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(680.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(776.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(872.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(968.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(1064.f, 500.f));
-    staticEntitiesList.addEntity(tmp);
-
-    movingEntitiesList.addEntity(p1);
+    /* Cria inimigos */
+    Entities::Characters::Enemies::Snake* snake = new Entities::Characters::Enemies::Snake(Math::CoordF(776.f, 300.f), p1);
+    snake->setVelocity(Math::CoordF(0.0f, 0.0f));
+    movingEntitiesList.addEntity(snake);
 
     exec();
 }
@@ -139,14 +63,10 @@ void Game::exec() {
         background.render();
 
         for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++) {
-        collisionManager.collide();
             movingEntitiesList[i]->update(dt);
         }
 
-        /* for (unsigned int i = 0; i < staticEntitiesList.getSize(); i++) {
-            staticEntitiesList[i]->update(dt);
-        } */
-
+        collisionManager.collide();
 
         for (unsigned int i = 0; i < staticEntitiesList.getSize(); i++) {
             staticEntitiesList[i]->render();
