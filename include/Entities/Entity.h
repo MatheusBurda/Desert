@@ -10,7 +10,10 @@ namespace Entities {
         empty = 0,
         player,
         platform,
-        snake
+        snake,
+        hyena,
+        cactus
+
     };
 
     class Entity {

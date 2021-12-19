@@ -4,8 +4,9 @@ namespace Entities {
 
     namespace Characters {
 
-        Character::Character(Math::CoordF position, Math::CoordF size, ID id, int life) :
-        MovingEntity(position, size, id) {
+        Character::Character(Math::CoordF position, Math::CoordF size, ID id, int life, const float atckCool) :
+        MovingEntity(position, size, id),
+        attackCooldown(atckCool) {
             this->life = life;
         }
 
@@ -41,6 +42,16 @@ namespace Entities {
 
                 velocity.y = 0.0f;
             }
+        }
+
+        const bool Character::canAttack() const {
+            return true;
+        }
+
+        void Character::attack() {
+            if (isAttacking)
+                return;
+            
         }
 
     } // namespace Characters

@@ -16,36 +16,24 @@ collisionManager(&movingEntitiesList, &staticEntitiesList) {
     dt = 0;
 
     movingEntitiesList.addEntity(p1);
-    
+
     /* Cria plataformas */
 
     Entities::Entity* tmp;
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(200.f, 500.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(296.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(392.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(488.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(584.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(680.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(776.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(872.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(968.f, 600.f));
-    staticEntitiesList.addEntity(tmp);
-    tmp = new Entities::Obstacles::Platform(Math::CoordF(1064.f, 500.f));
-    staticEntitiesList.addEntity(tmp);
 
+    for (int i = 0; i < 20; i++) {
+        tmp = new Entities::Obstacles::Platform(Math::CoordF(96.f * i, 500.f));
+        staticEntitiesList.addEntity(tmp);
+    }
 
     /* Cria inimigos */
     Entities::Characters::Enemies::Snake* snake = new Entities::Characters::Enemies::Snake(Math::CoordF(776.f, 300.f), p1);
     snake->setVelocity(Math::CoordF(0.0f, 0.0f));
     movingEntitiesList.addEntity(snake);
+
+    Entities::Characters::Enemies::Hyena* Hyena = new Entities::Characters::Enemies::Hyena(Math::CoordF(1200.f, 300.f), p1);
+    Hyena->setVelocity(Math::CoordF(-300.0f, 0.0f));
+    movingEntitiesList.addEntity(Hyena);
 
     exec();
 }
@@ -77,7 +65,6 @@ void Game::exec() {
         }
 
         pGraphicManager->display();
-
     }
 }
 

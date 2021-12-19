@@ -20,7 +20,7 @@ namespace Entities {
             Math::CoordF Enemy::getPlayerPosition(){
                 if (pPlayer == NULL) {
                     std::cout << "ERROR: Pointer to Player NULL on Enemy::getPlayerPosition." << std::endl;
-                    return;
+                    exit(1);
                 }
                 return pPlayer->getPosition();
             }
