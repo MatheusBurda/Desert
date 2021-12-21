@@ -6,27 +6,36 @@ namespace Entities {
     sprite() {
         active = true;
         velocity = Math::CoordF(0.0f, 0.0f);
+        facingLeft = false;
     }
 
     MovingEntity::~MovingEntity() { }
 
-    void MovingEntity::render(){
+    void MovingEntity::render() {
         sprite.render();
     }
 
-    const bool MovingEntity::isFacingLeft() const{
-        return velocity.x >= 0.0f ? false : true;
+    const bool MovingEntity::isFacingLeft() const {
+        return facingLeft;
     }
 
-    const bool MovingEntity::isActive() const{
+    void MovingEntity::setFacingLeft(const bool left){
+        facingLeft = left;
+    }
+
+    void MovingEntity::setFacingLeft(){
+        facingLeft = velocity.x >= 0.0f ? false : true;
+    }
+
+    const bool MovingEntity::isActive() const {
         return active;
     }
 
-    Math::CoordF MovingEntity::getVelocity() const{
+    Math::CoordF MovingEntity::getVelocity() const {
         return velocity;
     }
 
-    void MovingEntity::setVelocity(Math::CoordF velo){
+    void MovingEntity::setVelocity(Math::CoordF velo) {
         velocity = velo;
     }
 

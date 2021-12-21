@@ -4,6 +4,8 @@
 #include "../GraphicalElements/Animation.h"
 #include "math.h"
 
+#define GRAVITY 980.f
+
 namespace Entities {
 
     enum ID {

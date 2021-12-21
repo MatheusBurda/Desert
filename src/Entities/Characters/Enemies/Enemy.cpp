@@ -39,7 +39,7 @@ namespace Entities {
                     moveOnCollision(intersect, otherEntity);
                     break;
                 case ID::player:
-                    std::cout << "Inimigo colidiu com player" << std::endl;
+                    //std::cout << "Inimigo colidiu com player" << std::endl;
                     break;
                 default:
                     break;

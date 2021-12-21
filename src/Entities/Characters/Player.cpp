@@ -22,7 +22,7 @@ namespace Entities {
             time += dt;
 
             position.x += velocity.x * dt;
-            velocity.y += 900.8 * dt;
+            velocity.y += GRAVITY * dt;
             position.y += velocity.y * dt;
 
             updateSprite(dt);

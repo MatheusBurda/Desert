@@ -7,11 +7,12 @@ namespace Entities {
     namespace Characters {
 
         class Character : public MovingEntity {
-        private:
+        protected:
             int life;
-            bool isAttacking;
+            bool flagIsAttacking;
             const float attackCooldown;
             float attackTime;
+            float cooldownTime;
 
         public:
             Character(Math::CoordF position = Math::CoordF(0.f, 0.f),
@@ -39,6 +40,10 @@ namespace Entities {
             virtual void attack();
 
             const bool canAttack() const;
+
+            void incrementAttackTime(const float dt);
+
+            const bool isAttacking() const;
         };
 
     } // namespace Characters

@@ -3,6 +3,13 @@
 #define SNAKE_SIZE_X 60
 #define SNAKE_SIZE_Y 26
 #define SNAKE_LIFE 50
+#define SNAKE_PATH_IDLE "./assets/Snake/Snake_idle_2.png"
+#define SNAKE_PATH_WALK "./assets/Snake/Snake_walk.png"
+#define SNAKE_PATH_ATTACK "./assets/Snake/Snake_attack.png"
+#define SNAKE_ATTACK_DISTANCE 200.0f
+#define SNAKE_VELOCITY_X 200.f
+#define SNAKE_JUMP_HEIGHT 70.f
+#define SNAKE_SWITCHTIME 0.2
 
 namespace Entities {
 
@@ -11,7 +18,7 @@ namespace Entities {
         namespace Enemies {
 
             Snake::Snake(Math::CoordF position, Entities::Characters::Player* pP) :
-            Enemy(position, Math::CoordF(SNAKE_SIZE_X, SNAKE_SIZE_Y), ID::snake, SNAKE_LIFE, pP) {
+            Enemy(position, Math::CoordF(SNAKE_SIZE_X, SNAKE_SIZE_Y), ID::snake, SNAKE_LIFE, pP, 4 * SNAKE_SWITCHTIME) {
                 initialize();
             }
 
@@ -19,26 +26,48 @@ namespace Entities {
 
             void Snake::update(const float dt) {
 
-                position.x += velocity.x * dt;
-                velocity.y += 900.8 * dt;
+                Character::incrementAttackTime(dt);
+
+                playerDistance = getPlayerPosition().x - position.x;
+
+                MovingEntity::setFacingLeft(playerDistance <= 0);
+
+                if (!Character::isAttacking()) {
+
+                    velocity.x *= 0.1;
+
+                    if (Character::canAttack() && (fabs(playerDistance) < SNAKE_ATTACK_DISTANCE)) {
+                        velocity.y = -sqrtf(2.0f * GRAVITY * SNAKE_JUMP_HEIGHT);
+
+                        if (playerDistance < 0)
+                            velocity.x = -1 * SNAKE_VELOCITY_X;
+                        else
+                            velocity.x = SNAKE_VELOCITY_X;
+
+                        Character::attack();
+                    }
+                }
+
+                velocity.y += GRAVITY * dt;
                 position.y += velocity.y * dt;
+                position.x += velocity.x * dt;
 
                 updateSprite(dt);
             }
 
             void Snake::initialize() {
-                sprite.setSwitchTime(0.3);
-                
-                sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, "./assets/Snake/Snake_idle_2.png", 4);
-                sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, "./assets/Snake/Snake_walk.png", 4);
-                sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, "./assets/Snake/Snake_attack.png", 6);
+                sprite.setSwitchTime(SNAKE_SWITCHTIME);
+
+                sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, SNAKE_PATH_IDLE, 4);
+                sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, SNAKE_PATH_WALK, 4);
+                sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, SNAKE_PATH_ATTACK, 4);
             }
 
             void Snake::updateSprite(const float dt) {
-                // if(isAtacking())
-                // sprite.update(GraphicalElements::Animation_ID::attack, isFacingLeft(), position, dt);
+                if (isAttacking())
+                    sprite.update(GraphicalElements::Animation_ID::attack, isFacingLeft(), position, dt);
 
-                if (fabs(velocity.x) > 0)
+                else if (fabs(velocity.x) > 0)
                     sprite.update(GraphicalElements::Animation_ID::walk, isFacingLeft(), position, dt);
 
                 else

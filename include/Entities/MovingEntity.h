@@ -9,6 +9,7 @@ namespace Entities {
     protected:
         Math::CoordF velocity;
         bool active;
+        bool facingLeft;
 
         GraphicalElements::MultiFrameAnimation sprite;
 
@@ -28,6 +29,10 @@ namespace Entities {
         virtual void updateSprite(const float dt) = 0;
 
         const bool isFacingLeft() const;
+
+        void setFacingLeft(const bool left);
+
+        void setFacingLeft();
         
         const bool isActive() const;
         

@@ -8,6 +8,9 @@ namespace Entities {
         MovingEntity(position, size, id),
         attackCooldown(atckCool) {
             this->life = life;
+            this->cooldownTime = 0;
+            this->attackTime = 0;
+            flagIsAttacking = false;
         }
 
         Character::~Character() { }
@@ -45,13 +48,28 @@ namespace Entities {
         }
 
         const bool Character::canAttack() const {
-            return true;
+            return cooldownTime > attackCooldown ? true : false;
         }
 
         void Character::attack() {
-            if (isAttacking)
-                return;
-            
+            flagIsAttacking = true;
+        }
+
+        void Character::incrementAttackTime(const float dt) {
+            if (flagIsAttacking) {
+                cooldownTime = 0;
+                attackTime += dt;
+                if (attackTime > attackCooldown)
+                    flagIsAttacking = false;
+            }//
+            else {
+                cooldownTime += dt;
+                attackTime = 0;
+            }
+        }
+
+        const bool Character::isAttacking() const {
+            return flagIsAttacking;
         }
 
     } // namespace Characters

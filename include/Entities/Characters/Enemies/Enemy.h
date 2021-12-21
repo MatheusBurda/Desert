@@ -14,6 +14,9 @@ namespace Entities {
             private:
                 Player* pPlayer;
 
+            protected:
+                float playerDistance;
+
             public:
                 Enemy(Math::CoordF position = Math::CoordF(0.f, 0.f),
                     Math::CoordF size = Math::CoordF(0.f, 0.f),
