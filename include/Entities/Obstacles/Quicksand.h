@@ -2,16 +2,20 @@
 
 #include "Entities/StaticEntity.h"
 
+#define QUICKSAND_WIDTH 96.f
+#define QUICKSAND_HEIGHT 32.f
+#define QUICKSAND_PATH "./assets/Obstacles/Quicksand.png"
+
 namespace Entities {
 
     namespace Obstacles {
 
-        class Platform : public StaticEntity {
+        class Quicksand : public StaticEntity {
         private:
 
         public:
-            Platform(Math::CoordF position = Math::CoordF(0.f, 0.f));
-            ~Platform();
+            Quicksand(Math::CoordF position = Math::CoordF(0.f, 0.f));
+            ~Quicksand();
 
             void update(const float dt);
 

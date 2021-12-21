@@ -8,8 +8,8 @@ namespace Entities {
 
         namespace Enemies {
 
-            Enemy::Enemy(Math::CoordF position, Math::CoordF size, ID id, int life, Entities::Characters::Player* pP) :
-            Character(position, size, id, life),
+            Enemy::Enemy(Math::CoordF position, Math::CoordF size, ID id, int life, Entities::Characters::Player* pP, const float atckCooldown) :
+            Character(position, size, id, life, atckCooldown),
             pPlayer(pP) {
             }
 
@@ -17,7 +17,7 @@ namespace Entities {
                 pPlayer = NULL;
             }
 
-            Math::CoordF Enemy::getPlayerPosition(){
+            Math::CoordF Enemy::getPlayerPosition() {
                 if (pPlayer == NULL) {
                     std::cout << "ERROR: Pointer to Player NULL on Enemy::getPlayerPosition." << std::endl;
                     exit(1);
@@ -31,6 +31,19 @@ namespace Entities {
                     return;
                 }
                 pPlayer = pP;
+            }
+
+            void Enemy::collide(Entity* otherEntity, Math::CoordF intersect) {
+                switch (otherEntity->getId()) {
+                case ID::platform:
+                    moveOnCollision(intersect, otherEntity);
+                    break;
+                case ID::player:
+                    std::cout << "Inimigo colidiu com player" << std::endl;
+                    break;
+                default:
+                    break;
+                }
             }
 
         } // namespace Enemies

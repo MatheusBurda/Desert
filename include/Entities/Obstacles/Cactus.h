@@ -2,16 +2,20 @@
 
 #include "Entities/StaticEntity.h"
 
+#define CACTUS_WIDTH 96.f
+#define CACTUS_HEIGHT 32.f
+#define CACTUS_PATH "./assets/Obstacles/Cactus.png"
+
 namespace Entities {
 
     namespace Obstacles {
 
-        class Platform : public StaticEntity {
+        class Cactus : public StaticEntity {
         private:
 
         public:
-            Platform(Math::CoordF position = Math::CoordF(0.f, 0.f));
-            ~Platform();
+            Cactus(Math::CoordF position = Math::CoordF(0.f, 0.f));
+            ~Cactus();
 
             void update(const float dt);
 

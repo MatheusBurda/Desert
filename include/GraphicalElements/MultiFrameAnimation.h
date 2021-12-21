@@ -22,15 +22,16 @@ namespace GraphicalElements {
             sf::Texture* texture;
             float totalTime;
             sf::IntRect rectSize;
-            static const float switchTime;
+            const float switchTime;
 
         public:
-            SingleAnimation(const char* path, const unsigned int imageCount) :
+            SingleAnimation(const char* path, const unsigned int imageCount, const float switchTime) :
             imageCount(imageCount),
             currentImage(0),
             texture(pGraphicM->loadTexture(path)),
             totalTime(0.0f),
-            rectSize() {
+            rectSize(),
+            switchTime(switchTime) {
                 if (texture == NULL) {
                     std::cout << "ERROR: loading texture failed on SingleAnimation::SingleAnimation()." << std::endl;
                     exit(1);
@@ -76,6 +77,7 @@ namespace GraphicalElements {
     private:
         std::map<Animation_ID, SingleAnimation*> animationMap;
         Animation_ID currentID;
+        float switchTime;
 
     public:
         MultiFrameAnimation();
@@ -83,6 +85,8 @@ namespace GraphicalElements {
 
         void addNewAnimation(Animation_ID id, const char* path, unsigned int imageCount);
         void update(Animation_ID id, bool facingLeft, Math::CoordF position, const float dt);
+
+        void setSwitchTime(const float switchTime);
     };
 
 } // namespace Managers

@@ -1,5 +1,9 @@
 #include "Entities/Obstacles/Platform.h"
 
+#define PLATFORM_WIDTH 96.f
+#define PLATFORM_HEIGHT 32.f
+#define PLATFORM_PATH "./assets/Obstacles/Platform.png"
+
 namespace Entities {
 
     namespace Obstacles {

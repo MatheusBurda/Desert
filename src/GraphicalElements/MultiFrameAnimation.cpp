@@ -2,11 +2,10 @@
 
 namespace GraphicalElements {
 
-    const float MultiFrameAnimation::SingleAnimation::switchTime = 0.2;
-
     MultiFrameAnimation::MultiFrameAnimation() :
     animationMap(),
-    currentID(Animation_ID::idle) { }
+    currentID(Animation_ID::idle),
+    switchTime(0.2f) { }
 
     MultiFrameAnimation::~MultiFrameAnimation() {
         std::map<Animation_ID, SingleAnimation*>::iterator it;
@@ -18,7 +17,7 @@ namespace GraphicalElements {
 
     void MultiFrameAnimation::addNewAnimation(Animation_ID id, const char* path, unsigned int imageCount) {
 
-        SingleAnimation* tmp = new SingleAnimation(path, imageCount);
+        SingleAnimation* tmp = new SingleAnimation(path, imageCount, switchTime);
 
         if (tmp == NULL) {
             std::cout << "ERROR: Could not create Animation on MultiFrameAnimation::addNewAnimation!" << std::endl;
@@ -44,6 +43,10 @@ namespace GraphicalElements {
         body.setPosition(sf::Vector2f(position.x, position.y));
         body.setTextureRect(animationMap[currentID]->getSize());
         body.setTexture(animationMap[currentID]->getTexture());
+    }
+
+    void MultiFrameAnimation::setSwitchTime(const float switchTime) {
+        this->switchTime = switchTime;
     }
 
 }

@@ -1,5 +1,9 @@
 #include "Entities/Characters/Enemies/Hyena.h"
 
+#define HYENA_SIZE_X 65
+#define HYENA_SIZE_Y 50
+#define HYENA_LIFE 50
+
 namespace Entities {
 
     namespace Characters {
@@ -23,22 +27,11 @@ namespace Entities {
             }
 
             void Hyena::initialize() {
+                sprite.setSwitchTime(0.1f);
+
                 sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, "./assets/Hyena/Hyena_idle.png", 4);
                 sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, "./assets/Hyena/Hyena_walk.png", 6);
                 sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, "./assets/Hyena/Hyena_attack.png", 6);
-            }
-
-            void Hyena::collide(Entity* otherEntity, Math::CoordF intersect) {
-                switch (otherEntity->getId()) {
-                case ID::platform:
-                    moveOnCollision(intersect, otherEntity);
-                    break;
-                case ID::player:
-                    std::cout << "Heyna colidiu com player" << std::endl;
-                    break;
-                default:
-                    break;
-                }
             }
 
             void Hyena::updateSprite(const float dt) {

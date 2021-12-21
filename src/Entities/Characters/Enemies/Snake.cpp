@@ -1,5 +1,9 @@
 #include "Entities/Characters/Enemies/Snake.h"
 
+#define SNAKE_SIZE_X 60
+#define SNAKE_SIZE_Y 26
+#define SNAKE_LIFE 50
+
 namespace Entities {
 
     namespace Characters {
@@ -23,22 +27,11 @@ namespace Entities {
             }
 
             void Snake::initialize() {
-                sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, "./assets/Snake/Snake_idle.png", 4);
+                sprite.setSwitchTime(0.3);
+                
+                sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, "./assets/Snake/Snake_idle_2.png", 4);
                 sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, "./assets/Snake/Snake_walk.png", 4);
                 sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, "./assets/Snake/Snake_attack.png", 6);
-            }
-
-            void Snake::collide(Entity* otherEntity, Math::CoordF intersect) {
-                switch (otherEntity->getId()) {
-                case ID::platform:
-                    moveOnCollision(intersect, otherEntity);
-                    break;
-                case ID::player:
-                    std::cout << "Cobra colidiu com player" << std::endl;
-                    break;
-                default:
-                    break;
-                }
             }
 
             void Snake::updateSprite(const float dt) {

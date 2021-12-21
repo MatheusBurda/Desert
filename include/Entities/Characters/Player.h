@@ -2,10 +2,6 @@
 
 #include "Entities/Characters/Character.h"
 
-#define PLAYER_SIZE_Y 84.0f
-#define PLAYER_SIZE_X 32.0f
-#define PLAYER_LIFE 100
-
 namespace Entities {
 
     namespace Characters {

@@ -2,10 +2,6 @@
 
 #include "Entities/Characters/Enemies/Enemy.h"
 
-#define HYENA_SIZE_X 65
-#define HYENA_SIZE_Y 50
-#define HYENA_LIFE 50
-
 namespace Entities {
 
     namespace Characters {
@@ -22,8 +18,6 @@ namespace Entities {
                 void update(const float dt);
 
                 void initialize();
-
-                void collide(Entity* otherEntity, Math::CoordF intersect);
 
                 void updateSprite(const float dt);
 
