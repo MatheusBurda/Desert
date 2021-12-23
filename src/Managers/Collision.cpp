@@ -53,7 +53,7 @@ namespace Managers {
 
                 if (intersect.x < 0.0f && intersect.y < 0.0f) { // Condition to collide...
                     ent2->collide(ent1, intersect);
-                    ent1->collide(ent1, intersect);
+                    ent1->collide(ent2, intersect);
                 }
             }
         }

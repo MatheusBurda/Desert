@@ -39,20 +39,21 @@ namespace Entities {
             case ID::platform:
                 moveOnCollision(intersect, otherEntity);
                 break;
-
+            case ID::snake:
+                active = false;
+                break;
             default:
                 break;
             }
         }
 
         void Player::updateSprite(const float dt) {
-            //if(isAtacking()) 
-                //sprite.update(GraphicalElements::Animation_ID::attack, isFacingLeft(), position, dt);
+            if(isAttacking()) 
+                sprite.update(GraphicalElements::Animation_ID::attack, isFacingLeft(), position, dt);
 
-            if (fabs(velocity.x) > 0) {
+            else if (fabs(velocity.x) > 0) 
                 sprite.update(GraphicalElements::Animation_ID::walk, isFacingLeft(), position, dt);
-            }
-
+            
             else 
                 sprite.update(GraphicalElements::Animation_ID::idle, isFacingLeft(), position, dt);
 
