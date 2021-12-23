@@ -13,44 +13,33 @@ namespace Managers {
     }
 
     Events::Events() :
-    pGraphicM(NULL),
-    pInputM(NULL),
+    pGraphicM(Managers::Graphics::getInstance()),
+    pInputM(Managers::Input::getInstance()),
     pWindow(NULL) {
-        setGraphicManager();
+        if (pGraphicM != NULL)
+            pWindow = pGraphicM->getWindow();
     }
 
     /* ========================================= */
 
     Events::~Events() {
-        if (pInputM)
-            delete (pInputM);
         pGraphicM = NULL;
         pInputM = NULL;
         pWindow = NULL;
     }
 
-    void Events::setGraphicManager() {
-        pGraphicM = Graphics::getInstance();
-        if (pGraphicM != NULL)
-            pWindow = pGraphicM->getWindow();
-    }
-
-    void Events::setInputManager(InputManager* pIM) {
-        pInputM = pIM;
-    }
-
     void Events::pollEvents() {
         sf::Event event;
-
+        
         while (pWindow->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 pGraphicM->closeWindow();
             if (event.type == sf::Event::Resized)
                 pGraphicM->handleWindowResize();
-            if ((event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased) && pInputM)
-                pInputM->handleKeyPressed();
-            if (event.type == sf::Event::TextEntered)
-                pInputM->handleTextEntered(event);
+            if (event.type == sf::Event::KeyPressed)
+                pInputM->handleKeyPressed(event.key.code);
+            if (event.type == sf::Event::KeyReleased)
+                pInputM->handleKeyReleased(event.key.code);
         }
     }
 

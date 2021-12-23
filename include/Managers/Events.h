@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Managers/Graphics.h"
-//#include "InputManager.h"
+#include "Managers/Input.h"
 
 namespace Managers {
 
     class Events {
     private:
         Graphics* pGraphicM;
-        //InputManager* pInputM;
+        Input* pInputM;
         sf::RenderWindow* pWindow;
 
         /* Singleton design pattern */
@@ -21,7 +21,7 @@ namespace Managers {
         static Events* getInstance();
 
         void setGraphicManager();
-        //void setInputManager(InputManager* pIM);
+        void setInput(Input* pIM);
 
         void pollEvents();
     };

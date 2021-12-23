@@ -27,7 +27,7 @@ namespace Entities {
     public:
         Entity(Math::CoordF position = Math::CoordF(0.f, 0.f), Math::CoordF size = Math::CoordF(0.f, 0.f), ID id = empty);
 
-        ~Entity();
+        virtual ~Entity();
 
         void setPosition(Math::CoordF pos);
 

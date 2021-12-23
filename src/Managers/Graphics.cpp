@@ -23,7 +23,7 @@ namespace Managers {
     Graphics::Graphics() :
     window(new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Desert")),
     view(sf::Vector2f(WIDTH / 2, HEIGHT / 2), sf::Vector2f(WIDTH, HEIGHT)),
-    texturesMap(){
+    texturesMap() {
         font = NULL;
     }
 
@@ -56,17 +56,6 @@ namespace Managers {
     void Graphics::clear() {
         if (isWindowOpen())
             window->clear();
-
-        sf::Event event;
-        while (window->pollEvent(event)) {
-            switch (event.type) {
-            case sf::Event::Closed:
-                closeWindow();
-                break;
-            default:
-                break;
-            }
-        }
     }
 
     /* Returns if the window is open. */
@@ -130,6 +119,10 @@ namespace Managers {
             }
         }
         return font;
+    }
+
+    sf::RenderWindow* Graphics::getWindow() const{
+        return window;
     }
 
 } // namespace Managers

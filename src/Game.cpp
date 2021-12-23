@@ -2,8 +2,11 @@
 
 using namespace Managers;
 
+#include "Control/TesteObserver.h"
+
 Game::Game() :
 pGraphicManager(Graphics::getInstance()),
+pEventManager(Events::getInstance()),
 p1(new Entities::Characters::Player(Math::CoordF(200.f, 400.f), true)),
 background(),
 staticEntitiesList(),
@@ -18,7 +21,6 @@ collisionManager(&movingEntitiesList, &staticEntitiesList) {
     movingEntitiesList.addEntity(p1);
 
     /* Cria plataformas */
-
     Entities::Entity* tmp;
 
     for (int i = 0; i < 20; i++) {
@@ -44,9 +46,13 @@ Game::~Game() {
 void Game::exec() {
     float dt;
 
+    Control::TesteObserver teste;
+
     while (pGraphicManager->isWindowOpen()) {
         dt = updateDeltaTime();
         pGraphicManager->clear();
+
+        pEventManager->pollEvents();
 
         background.render();
 

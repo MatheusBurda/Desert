@@ -14,7 +14,6 @@ namespace Managers {
         std::map<const char*, sf::Texture*> texturesMap;
         sf::Font* font;
         
-
         /* Singleton design pattern */
         static Managers::Graphics* instance;
         Graphics();
@@ -47,6 +46,8 @@ namespace Managers {
         sf::Font* getFont();
 
         float updateDeltaTime();
+
+        sf::RenderWindow* getWindow() const;
 
     };
 

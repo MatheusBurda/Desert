@@ -13,6 +13,7 @@ namespace Entities {
 
         public:
             Player(Math::CoordF position = Math::CoordF(0.f, 0.f), bool isPLayer1 = true);
+            
             ~Player();
 
             void update(const float dt);
