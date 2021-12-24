@@ -13,7 +13,10 @@ namespace Control {
 
         virtual ~Observer();
         
-        virtual void notify(std::string key) = 0;
+        virtual void notifyPressed(std::string key) = 0;
+
+        virtual void notifyReleased(std::string key) = 0;
+
     };
 
 } // namespace Control

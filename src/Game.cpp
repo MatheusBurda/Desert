@@ -2,12 +2,10 @@
 
 using namespace Managers;
 
-#include "Control/TesteObserver.h"
-
 Game::Game() :
 pGraphicManager(Graphics::getInstance()),
 pEventManager(Events::getInstance()),
-p1(new Entities::Characters::Player(Math::CoordF(200.f, 400.f), true)),
+p1(new Entities::Characters::Player(Math::CoordF(200.f, 400.f))),
 background(),
 staticEntitiesList(),
 movingEntitiesList(),
@@ -44,23 +42,26 @@ Game::~Game() {
 }
 
 void Game::exec() {
-    float dt;
-
-    Control::TesteObserver teste;
-
     while (pGraphicManager->isWindowOpen()) {
-        dt = updateDeltaTime();
-        pGraphicManager->clear();
 
         pEventManager->pollEvents();
 
-        background.render();
+        pGraphicManager->clear();
 
-        for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++) {
-            movingEntitiesList[i]->update(dt);
+        if (dt < TICK_RATE) {
+            dt += clock.getElapsedTime().asSeconds();
+            clock.restart();
+        } //
+        else {
+            for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++) {
+                movingEntitiesList[i]->update(0.01f);
+            }
+
+            collisionManager.collide();
+            dt -= TICK_RATE;
         }
 
-        collisionManager.collide();
+        background.render();
 
         for (unsigned int i = 0; i < staticEntitiesList.getSize(); i++) {
             staticEntitiesList[i]->render();
@@ -72,17 +73,4 @@ void Game::exec() {
 
         pGraphicManager->display();
     }
-}
-
-/* Update the dt timer */
-float Game::updateDeltaTime() {
-    if (dt < TICK_RATE) {
-        dt += clock.getElapsedTime().asSeconds();
-        clock.restart();
-        return 0.0f;
-    }
-
-    dt -= TICK_RATE;
-
-    return TICK_RATE;
 }

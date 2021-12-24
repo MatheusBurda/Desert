@@ -1,7 +1,7 @@
 #include "Entities/Characters/Enemies/Hyena.h"
 
 #define HYENA_SIZE_X 60
-#define HYENA_SIZE_Y 36
+#define HYENA_SIZE_Y 56
 #define HYENA_LIFE 50
 #define HYENA_PATH_IDLE "./assets/Hyena/Hyena_idle.png"
 #define HYENA_PATH_WALK "./assets/Hyena/Hyena_walk.png"

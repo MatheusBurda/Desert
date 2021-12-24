@@ -11,6 +11,7 @@
 #include "List/EntityList.h"
 #include "Managers/Collision.h"
 
+
 #define TICK_RATE 0.0078125
 
 class Game {
@@ -27,9 +28,8 @@ private:
 
 public:
     Game();
+    
     ~Game();
 
     void exec();
-
-    float updateDeltaTime();
 };

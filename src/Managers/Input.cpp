@@ -87,12 +87,14 @@ namespace Managers {
     void Input::handleKeyPressed(sf::Keyboard::Key key) {
         keysDown[key] = true;
         for (it = objObserving.begin(); it != objObserving.end(); ++it)
-            (*it)->notify(keyMap[key]);
+            (*it)->notifyPressed(keyMap[key]);
     }
 
     /* Check for keys pressed and notify every Observer. */
     void Input::handleKeyReleased(sf::Keyboard::Key key) {
         keysDown[key] = false;
+        for (it = objObserving.begin(); it != objObserving.end(); ++it)
+            (*it)->notifyReleased(keyMap[key]);
     }
 
 } // namespace Managers

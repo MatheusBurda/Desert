@@ -1,16 +1,14 @@
-#include "Control/TesteObserver.h"
+#include "Control/TextInput.h"
 
 #include <iostream>
 
 namespace Control {
 
-    TesteObserver::TesteObserver() {
-    }
+    TextInput::TextInput() { }
 
-    TesteObserver::~TesteObserver() {
-    }
+    TextInput::~TextInput() { }
 
-    void TesteObserver::notify(std::string key) {
+    void TextInput::notifyPressed(std::string key) {
         if (key == "BackSpace") {
             if (text.size() > 0)
                 text.pop_back();
@@ -22,5 +20,7 @@ namespace Control {
 
         std::cout << text << std::endl;
     }
+
+    void TextInput::notifyReleased(std::string key) { }
 
 } // namespace Control
