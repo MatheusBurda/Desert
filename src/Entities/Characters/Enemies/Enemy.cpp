@@ -14,20 +14,20 @@ namespace Entities {
             }
 
             Enemy::~Enemy() {
-                pPlayer = NULL;
+                pPlayer = nullptr;
             }
 
             Math::CoordF Enemy::getPlayerPosition() {
-                if (pPlayer == NULL) {
-                    std::cout << "ERROR: Pointer to Player NULL on Enemy::getPlayerPosition." << std::endl;
+                if (pPlayer == nullptr) {
+                    std::cout << "ERROR: Pointer to Player nullptr on Enemy::getPlayerPosition." << std::endl;
                     exit(1);
                 }
                 return pPlayer->getPosition();
             }
 
             void Enemy::setpPlayer(Entities::Characters::Player* pP) {
-                if (pP == NULL) {
-                    std::cout << "ERROR: Pointer to Player NULL on Enemy::setpPlayer." << std::endl;
+                if (pP == nullptr) {
+                    std::cout << "ERROR: Pointer to Player nullptr on Enemy::setpPlayer." << std::endl;
                     return;
                 }
                 pPlayer = pP;

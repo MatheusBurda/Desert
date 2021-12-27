@@ -10,11 +10,11 @@
 namespace Managers {
 
     /* Singleton design pattern - Only one instance will be created */
-    Graphics* Graphics::instance = NULL;
+    Graphics* Graphics::instance = nullptr;
 
     /* Returns a pointer to the Graphics. */
     Graphics* Graphics::getInstance() {
-        if (instance == NULL) {
+        if (instance == nullptr) {
             instance = new Graphics();
         }
         return instance;
@@ -24,14 +24,15 @@ namespace Managers {
     window(new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Desert")),
     view(sf::Vector2f(WIDTH / 2, HEIGHT / 2), sf::Vector2f(WIDTH, HEIGHT)),
     texturesMap() {
-        font = NULL;
+        font = nullptr;
     }
 
     Graphics::~Graphics() {
-
         std::map<const char*, sf::Texture*>::iterator it;
-        for (it = texturesMap.begin(); it != texturesMap.end(); ++it)
+
+        for (it = texturesMap.begin(); it != texturesMap.end(); ++it) {
             delete (it->second);
+        }
 
         delete (window);
     }
@@ -121,7 +122,7 @@ namespace Managers {
         return font;
     }
 
-    sf::RenderWindow* Graphics::getWindow() const{
+    sf::RenderWindow* Graphics::getWindow() const {
         return window;
     }
 

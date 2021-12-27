@@ -3,10 +3,10 @@
 namespace Managers {
 
     /* Singleton design pattern - Only one instance will be created */
-    Events* Events::instance = NULL;
+    Events* Events::instance = nullptr;
 
     Events* Events::getInstance() {
-        if (instance == NULL) {
+        if (instance == nullptr) {
             instance = new Events();
         }
         return instance;
@@ -15,17 +15,17 @@ namespace Managers {
     Events::Events() :
     pGraphicM(Managers::Graphics::getInstance()),
     pInputM(Managers::Input::getInstance()),
-    pWindow(NULL) {
-        if (pGraphicM != NULL)
+    pWindow(nullptr) {
+        if (pGraphicM != nullptr)
             pWindow = pGraphicM->getWindow();
     }
 
     /* ========================================= */
 
     Events::~Events() {
-        pGraphicM = NULL;
-        pInputM = NULL;
-        pWindow = NULL;
+        pGraphicM = nullptr;
+        pInputM = nullptr;
+        pWindow = nullptr;
     }
 
     void Events::pollEvents() {

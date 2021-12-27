@@ -22,7 +22,7 @@ namespace Entities {
                     Math::CoordF size = Math::CoordF(0.f, 0.f),
                     ID id = empty,
                     int life = 1,
-                    Entities::Characters::Player* pP = NULL,
+                    Entities::Characters::Player* pP = nullptr,
                     const float atckCooldown = 1.0f);
 
                 virtual ~Enemy();

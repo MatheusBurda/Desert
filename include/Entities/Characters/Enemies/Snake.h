@@ -10,7 +10,7 @@ namespace Entities {
 
             class Snake : public Enemy {
             public:
-                Snake(Math::CoordF position = Math::CoordF(0.f, 0.f), Entities::Characters::Player* pP = NULL);
+                Snake(Math::CoordF position = Math::CoordF(0.f, 0.f), Entities::Characters::Player* pP = nullptr);
 
                 ~Snake();
 
