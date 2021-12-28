@@ -4,7 +4,8 @@ using namespace Managers;
 
 Game::Game() :
 pGraphicManager(Graphics::getInstance()),
-p1(new Entities::Characters::Player(Math::CoordF(200.f, 400.f), true)),
+pEventManager(Events::getInstance()),
+p1(new Entities::Characters::Player(Math::CoordF(200.f, 400.f))),
 background(),
 staticEntitiesList(),
 movingEntitiesList(),
@@ -18,7 +19,6 @@ collisionManager(&movingEntitiesList, &staticEntitiesList) {
     movingEntitiesList.addEntity(p1);
 
     /* Cria plataformas */
-
     Entities::Entity* tmp;
 
     for (int i = 0; i < 20; i++) {
@@ -42,19 +42,26 @@ Game::~Game() {
 }
 
 void Game::exec() {
-    float dt;
-
     while (pGraphicManager->isWindowOpen()) {
-        dt = updateDeltaTime();
+
+        pEventManager->pollEvents();
+
         pGraphicManager->clear();
 
-        background.render();
+        if (dt < TICK_RATE) {
+            dt += clock.getElapsedTime().asSeconds();
+            clock.restart();
+        } //
+        else {
+            for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++) {
+                movingEntitiesList[i]->update(0.01f);
+            }
 
-        for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++) {
-            movingEntitiesList[i]->update(dt);
+            collisionManager.collide();
+            dt -= TICK_RATE;
         }
 
-        collisionManager.collide();
+        background.render();
 
         for (unsigned int i = 0; i < staticEntitiesList.getSize(); i++) {
             staticEntitiesList[i]->render();
@@ -66,17 +73,4 @@ void Game::exec() {
 
         pGraphicManager->display();
     }
-}
-
-/* Update the dt timer */
-float Game::updateDeltaTime() {
-    if (dt < TICK_RATE) {
-        dt += clock.getElapsedTime().asSeconds();
-        clock.restart();
-        return 0.0f;
-    }
-
-    dt -= TICK_RATE;
-
-    return TICK_RATE;
 }

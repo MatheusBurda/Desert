@@ -25,7 +25,7 @@ namespace Entities {
                     Entities::Characters::Player* pP = NULL,
                     const float atckCooldown = 1.0f);
 
-                ~Enemy();
+                virtual ~Enemy();
 
                 void setpPlayer(Entities::Characters::Player* pP);
 

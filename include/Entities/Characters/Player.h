@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entities/Characters/Character.h"
+#include "Control/PlayerControl.h"
 
 namespace Entities {
 
@@ -8,11 +9,13 @@ namespace Entities {
 
         class Player : public Character {
         private:
-            const bool isPlayer1;
-            float time;
+            Control::PlayerControl pControl;
+            bool isWalking;
+            bool canJump;
 
         public:
-            Player(Math::CoordF position = Math::CoordF(0.f, 0.f), bool isPLayer1 = true);
+            Player(Math::CoordF position = Math::CoordF(0.f, 0.f));
+            
             ~Player();
 
             void update(const float dt);
@@ -22,6 +25,12 @@ namespace Entities {
             void collide(Entity* otherEntity, Math::CoordF intersect);
 
             void updateSprite(const float dt);
+
+            void jump();
+
+            void walk(bool toLeft);
+
+            void stopWalking();
 
         };
 

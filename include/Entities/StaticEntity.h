@@ -12,7 +12,7 @@ namespace Entities {
     public:
         StaticEntity(Math::CoordF position = Math::CoordF(0.f, 0.f), Math::CoordF size = Math::CoordF(0.f, 0.f), ID id = empty);
 
-        ~StaticEntity();
+        virtual ~StaticEntity();
 
         void render();
 

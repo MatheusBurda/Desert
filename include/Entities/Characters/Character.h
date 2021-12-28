@@ -21,7 +21,7 @@ namespace Entities {
                 int life = 1,
                 const float atckCool = 0.0f);
 
-            ~Character();
+            virtual ~Character();
 
             const int getLife() const;
 

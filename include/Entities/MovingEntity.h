@@ -16,7 +16,7 @@ namespace Entities {
     public:
         MovingEntity(Math::CoordF position = Math::CoordF(0.f, 0.f), Math::CoordF size = Math::CoordF(0.f, 0.f), ID id = empty);
 
-        ~MovingEntity();
+        virtual ~MovingEntity();
 
         virtual void render();
 

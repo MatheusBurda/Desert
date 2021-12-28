@@ -36,7 +36,7 @@ namespace Entities {
                 velocity.x *= 0.0f;
             }
 
-            else { // Colision on y direction
+            else {                          // Colision on y direction
                 if (position.y < otherPos.y)
                     position.y += intersect.y;
 
@@ -52,7 +52,8 @@ namespace Entities {
         }
 
         void Character::attack() {
-            flagIsAttacking = true;
+            if (canAttack())
+                flagIsAttacking = true;
         }
 
         void Character::incrementAttackTime(const float dt) {
@@ -61,7 +62,7 @@ namespace Entities {
                 attackTime += dt;
                 if (attackTime > attackCooldown)
                     flagIsAttacking = false;
-            }//
+            } //
             else {
                 cooldownTime += dt;
                 attackTime = 0;
