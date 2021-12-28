@@ -2,6 +2,8 @@
 
 #include "States/State.h"
 
+#include <iostream>
+
 namespace States {
 
     StateMachine::StateMachine() { }
@@ -26,6 +28,14 @@ namespace States {
 
     stateID StateMachine::getCurrentStateID() const {
         return currentStateID;
+    }
+
+    void StateMachine::insertState(States::State* pState) {
+        if (pState == nullptr) {
+            std::cout << "ERROR pointer to State NULL on StateMachine::insertState()" << std::endl;
+            exit(1);
+        }
+        mapOfStates.insert(std::pair<stateID, State*>(pState->getID(), pState));
     }
 
 } // namespace States

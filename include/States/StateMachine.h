@@ -8,6 +8,7 @@ namespace States {
     class StateMachine {
     protected:
         States::stateID currentStateID;
+
         std::map<stateID, State*> mapOfStates;
 
     public:
@@ -20,6 +21,8 @@ namespace States {
         void execCurrentState(const float dt);
 
         States::stateID getCurrentStateID() const;
+
+        void insertState(States::State* pState);
     };
 
 }
