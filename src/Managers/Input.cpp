@@ -52,6 +52,16 @@ namespace Managers {
         keyMap[sf::Keyboard::Num8] = "8";
         keyMap[sf::Keyboard::Num9] = "9";
         keyMap[sf::Keyboard::Num0] = "0";
+        keyMap[sf::Keyboard::Numpad0] = "0";
+        keyMap[sf::Keyboard::Numpad1] = "1";
+        keyMap[sf::Keyboard::Numpad2] = "2";
+        keyMap[sf::Keyboard::Numpad3] = "3";
+        keyMap[sf::Keyboard::Numpad4] = "4";
+        keyMap[sf::Keyboard::Numpad5] = "5";
+        keyMap[sf::Keyboard::Numpad6] = "6";
+        keyMap[sf::Keyboard::Numpad7] = "7";
+        keyMap[sf::Keyboard::Numpad8] = "8";
+        keyMap[sf::Keyboard::Numpad9] = "9";
         keyMap[sf::Keyboard::Space] = "Space";
         keyMap[sf::Keyboard::Enter] = "Enter";
         keyMap[sf::Keyboard::Escape] = "Escape";
@@ -60,17 +70,16 @@ namespace Managers {
         keyMap[sf::Keyboard::Left] = "Left";
         keyMap[sf::Keyboard::Up] = "Up";
         keyMap[sf::Keyboard::Down] = "Down";
-
-        std::map<sf::Keyboard::Key, std::string>::iterator it;
-
-        for (it = keyMap.begin(); it != keyMap.end(); it++) {
-            keysDown[it->first] = false;
-        }
+        keyMap[sf::Keyboard::LControl] = "Control";
+        keyMap[sf::Keyboard::LShift] = "Shift";
+        keyMap[sf::Keyboard::RControl] = "RControl";
+        keyMap[sf::Keyboard::RShift] = "RShift";
+        keyMap[sf::Keyboard::Hyphen] = "-";
+        keyMap[sf::Keyboard::Tab] = "Tab";
     }
 
     Input::~Input() {
         objObserving.clear();
-        keysDown.clear();
         keyMap.clear();
     }
 
@@ -85,16 +94,18 @@ namespace Managers {
 
     /* Check for keys pressed and notify every Observer. */
     void Input::handleKeyPressed(sf::Keyboard::Key key) {
-        keysDown[key] = true;
         for (it = objObserving.begin(); it != objObserving.end(); ++it)
-            (*it)->notifyPressed(keyMap[key]);
+            (*it)->notifyPressed(getKeyasString(key));
     }
 
     /* Check for keys pressed and notify every Observer. */
     void Input::handleKeyReleased(sf::Keyboard::Key key) {
-        keysDown[key] = false;
         for (it = objObserving.begin(); it != objObserving.end(); ++it)
-            (*it)->notifyReleased(keyMap[key]);
+            (*it)->notifyReleased(getKeyasString(key));
+    }
+
+    std::string Input::getKeyasString(sf::Keyboard::Key key) {
+        return keyMap[key] == "" ? "Unknown" : keyMap[key];
     }
 
 } // namespace Managers

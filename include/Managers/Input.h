@@ -14,10 +14,10 @@ namespace Managers {
     class Input {
     private:
         std::list<Control::Observer*> objObserving;
+        
         std::list<Control::Observer*>::iterator it;
 
         std::map<sf::Keyboard::Key, std::string> keyMap;
-        std::map<sf::Keyboard::Key, bool> keysDown;
 
         /* Singleton design pattern */
         static Input* instance;
@@ -37,7 +37,7 @@ namespace Managers {
 
         void handleKeyReleased(sf::Keyboard::Key key);
 
-        std::string getInputAsString();
+        std::string getKeyasString(sf::Keyboard::Key key);
     };
 
 } // namespace Managers

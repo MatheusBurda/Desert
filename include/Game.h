@@ -10,7 +10,7 @@
 #include "GraphicalElements/SingleFrameAnimation.h"
 #include "List/EntityList.h"
 #include "Managers/Collision.h"
-
+#include "Control/TextInput.h"
 
 #define TICK_RATE 0.0078125
 
