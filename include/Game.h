@@ -11,6 +11,8 @@
 #include "List/EntityList.h"
 #include "Managers/Collision.h"
 #include "Control/TextInput.h"
+#include "GraphicalElements/Text.h"
+#include "GraphicalElements/Hud.h"
 
 #define TICK_RATE 0.0078125
 
@@ -19,6 +21,7 @@ private:
     Managers::Graphics* pGraphicManager;
     Managers::Events* pEventManager;
     Entities::Characters::Player* p1;
+
     GraphicalElements::SingleFrameAnimation background;
     List::EntityList staticEntitiesList;
     List::EntityList movingEntitiesList;

@@ -42,6 +42,13 @@ Game::~Game() {
 }
 
 void Game::exec() {
+
+    /* ================= REMOVER ==================== */
+    GraphicalElements::Hud hud(p1);
+    
+
+    /* ============================================== */
+
     while (pGraphicManager->isWindowOpen()) {
 
         pEventManager->pollEvents();
@@ -70,6 +77,13 @@ void Game::exec() {
         for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++) {
             movingEntitiesList[i]->render();
         }
+
+        /* ============================================== */
+        hud.update(1);
+
+        hud.render();
+
+        /* ============================================== */
 
         pGraphicManager->display();
     }

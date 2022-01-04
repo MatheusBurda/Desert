@@ -3,7 +3,7 @@
 #include <cstring>
 #include <iostream>
 
-#define FONT_PATH "./assets/Fonts/minecraft-ten.ttf"
+#define FONT_PATH "./assets/Fonts/MainFont.ttf"
 #define WIDTH 1280
 #define HEIGHT 720
 

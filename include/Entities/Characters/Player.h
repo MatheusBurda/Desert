@@ -12,6 +12,7 @@ namespace Entities {
             Control::PlayerControl pControl;
             bool isWalking;
             bool canJump;
+            int points;
 
         public:
             Player(Math::CoordF position = Math::CoordF(0.f, 0.f));
@@ -31,6 +32,8 @@ namespace Entities {
             void walk(bool toLeft);
 
             void stopWalking();
+
+           int getPlayerPoints() const;
 
         };
 

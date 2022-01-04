@@ -1,8 +1,7 @@
 #pragma once
 
-#include "../Math/CoordTL.h"
-#include "../GraphicalElements/Animation.h"
-#include "math.h"
+#include "Ent.h"
+#include <math.h>
 
 #define GRAVITY 980.f
 
@@ -18,22 +17,14 @@ namespace Entities {
 
     };
 
-    class Entity {
+    class Entity : public Ent {
     protected:
-        Math::CoordF position;
-        Math::CoordF size;
         ID id;
 
     public:
         Entity(Math::CoordF position = Math::CoordF(0.f, 0.f), Math::CoordF size = Math::CoordF(0.f, 0.f), ID id = empty);
 
         virtual ~Entity();
-
-        void setPosition(Math::CoordF pos);
-
-        Math::CoordF getPosition() const;
-
-        Math::CoordF getSize() const;
 
         ID getId() const;
 

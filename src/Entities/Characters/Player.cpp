@@ -12,11 +12,12 @@ namespace Entities {
     namespace Characters {
 
         Player::Player(Math::CoordF position) :
+        Character(position, Math::CoordF(PLAYER_SIZE_X, PLAYER_SIZE_Y), ID::player, PLAYER_LIFE, PLAYER_ATTACK_COOLDOWN),
         pControl(this),
-        Character(position, Math::CoordF(PLAYER_SIZE_X, PLAYER_SIZE_Y), ID::player, PLAYER_LIFE, PLAYER_ATTACK_COOLDOWN) {
+        canJump(false),
+        isWalking(false),
+        points(12) {
             initialize();
-            canJump = false;
-            isWalking = false;
         }
 
         Player::~Player() { }
@@ -46,7 +47,12 @@ namespace Entities {
                 canJump = true;
                 break;
             case ID::snake:
-                active = false;
+                if (isAttacking())
+                    points += 100;
+                break;
+            case ID::hyena:
+                if (isAttacking())
+                    points += 200;
                 break;
             default:
                 break;
@@ -57,7 +63,7 @@ namespace Entities {
             if (isAttacking())
                 sprite.update(GraphicalElements::Animation_ID::attack, isFacingLeft(), position, dt);
 
-            else if (isWalking) 
+            else if (isWalking)
                 sprite.update(GraphicalElements::Animation_ID::walk, isFacingLeft(), position, dt);
 
             else
@@ -83,8 +89,10 @@ namespace Entities {
 
         void Player::stopWalking() {
             isWalking = false;
+        }
 
-            //velocity.x = 0;
+        int Player::getPlayerPoints() const{
+            return points;
         }
 
     }
