@@ -13,6 +13,7 @@
 #include "Control/TextInput.h"
 #include "GraphicalElements/Text.h"
 #include "GraphicalElements/Hud.h"
+#include "GraphicalElements/Button.h"
 
 #define TICK_RATE 0.0078125
 

@@ -45,7 +45,6 @@ void Game::exec() {
 
     /* ================= REMOVER ==================== */
     GraphicalElements::Hud hud(p1);
-    
 
     /* ============================================== */
 
@@ -82,7 +81,6 @@ void Game::exec() {
         hud.update(1);
 
         hud.render();
-
         /* ============================================== */
 
         pGraphicManager->display();

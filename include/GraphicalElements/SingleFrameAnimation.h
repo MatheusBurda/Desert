@@ -10,7 +10,8 @@ namespace GraphicalElements {
 
     public:
         SingleFrameAnimation();
-        ~SingleFrameAnimation();
+
+        virtual ~SingleFrameAnimation();
 
         void initialize(const char* path, Math::CoordF position, Math::CoordF size);
 

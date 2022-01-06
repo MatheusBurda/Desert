@@ -17,14 +17,14 @@ namespace List {
 
         public:
             Node() {
-                pNext = NULL;
-                pPrevious = NULL;
-                pInfo = NULL;
+                pNext = nullptr;
+                pPrevious = nullptr;
+                pInfo = nullptr;
             }
             ~Node() {
-                pNext = NULL;
-                pPrevious = NULL;
-                pInfo = NULL;
+                pNext = nullptr;
+                pPrevious = nullptr;
+                pInfo = nullptr;
             }
             /* Set next template Node - internal list use */
             void setNext(Node<TE>* pNext) { this->pNext = pNext; }
@@ -82,8 +82,8 @@ namespace List {
 
         paux1 = pFirst;
         paux2 = paux1;
-
-        while (paux1 != NULL) {
+        
+        while (paux1 != nullptr) {
             delete (paux1->getInfo());
             paux2 = paux1->getNext();
             delete (paux1);
@@ -91,15 +91,15 @@ namespace List {
             size--;
         }
 
-        pFirst = NULL;
-        pLast = NULL;
+        pFirst = nullptr;
+        pLast = nullptr;
     }
 
     /* Add new Node to List - internal use */
     template <class TL>
     void List<TL>::setNode(Node<TL>* pNode) {
-        if (pNode != NULL) {
-            if (pFirst == NULL) {
+        if (pNode != nullptr) {
+            if (pFirst == nullptr) {
                 pFirst = pNode;
                 pLast = pNode;
             } else {
@@ -110,7 +110,7 @@ namespace List {
             size++;
 
         } else {
-            std::cout << "ERROR: on List<TL>::setNode -> Pointer pNode == NULL. Insert not succeeded." << std::endl;
+            std::cout << "ERROR: on List<TL>::setNode -> Pointer pNode == nullptr. Insert not succeeded." << std::endl;
         }
     }
 
@@ -127,8 +127,8 @@ namespace List {
             pAux = pAux->getNext();
         }
 
-        if (pAux == NULL) {
-            std::cout << "ERROR: on template operator[] pAux == NULL." << std::endl;
+        if (pAux == nullptr) {
+            std::cout << "ERROR: on template operator[] pAux == nullptr." << std::endl;
             exit(1);
         }
         return pAux->getInfo();
@@ -137,15 +137,15 @@ namespace List {
     /* push new node to the template list */
     template <class TL>
     void List<TL>::push(TL* pInfo) {
-        if (pInfo != NULL) {
-            Node<TL>* pNode = NULL;
+        if (pInfo != nullptr) {
+            Node<TL>* pNode = nullptr;
             pNode = new Node<TL>();
             pNode->setInfo(pInfo);
             setNode(pNode);
         }
 
         else {
-            std::cout << "ERROR: on List<TL>::push -> pInfo == NULL" << std::endl;
+            std::cout << "ERROR: on List<TL>::push -> pInfo == nullptr" << std::endl;
         }
     }
 
@@ -153,15 +153,21 @@ namespace List {
     template <class TL>
     TL* List<TL>::pop(TL* pInfo) {
         Node<TL>* pAux = pFirst;
-        Node<TL>* pPrev = NULL;
-        while (pAux != NULL) {
+        Node<TL>* pPrev = nullptr;
+        while (pAux != nullptr) {
             if (pAux->getInfo() == pInfo) {
-                if (pAux == pFirst)
+                if (pAux == pFirst) {
                     pFirst = pAux->getNext();
-                else if (pAux == pLast)
-                    pLast = pAux->getPrevious();
-                else
+                    pFirst->setPrevious(nullptr);
+                } //                
+                else if (pAux == pLast) {
+                    pLast = pPrev;
+                    pPrev->setNext(nullptr);
+                }//
+                else {
                     pPrev->setNext(pAux->getNext());
+                    pPrev->getNext()->setPrevious(pPrev);
+                }
 
                 delete (pAux);
                 size--;
@@ -171,7 +177,7 @@ namespace List {
             pPrev = pAux;
             pAux = pAux->getNext();
         }
-        return NULL;
+        return nullptr;
     }
 
     /* Pops a specific element fom list given by its index. Returns the element popped from list.*/
@@ -183,19 +189,25 @@ namespace List {
         }
 
         Node<TL>* pAux = pFirst;
-        Node<TL>* pPrev = NULL;
+        Node<TL>* pPrev = nullptr;
 
         for (int i = 0; i < index; i++) {
             pPrev = pAux;
             pAux = pAux->getNext();
         }
 
-        if (pAux == pFirst)
+        if (pAux == pFirst) {
             pFirst = pAux->getNext();
-        else if (pAux == pLast)
-            pLast = pAux->getPrevious();
-        else
+            pFirst->setPrevious(nullptr);
+        } //
+        else if (pAux == pLast) {
+            pLast = pPrev;
+            pPrev->setNext(nullptr);
+        }//
+        else {
             pPrev->setNext(pAux->getNext());
+            pPrev->getNext()->setPrevious(pPrev);
+        }
 
         TL* pInfo = pAux->getInfo();
 
