@@ -10,13 +10,13 @@ namespace Managers {
     staticEntities(staticEntities) { }
 
     Collision::~Collision() {
-        movingEntities = NULL;
-        staticEntities = NULL;
+        movingEntities = nullptr;
+        staticEntities = nullptr;
     }
 
     void Collision::collide() {
-        Entities::Entity* ent1 = NULL;
-        Entities::Entity* ent2 = NULL;
+        Entities::Entity* ent1 = nullptr;
+        Entities::Entity* ent2 = nullptr;
         Math::CoordF intersect;
         Math::CoordF centerDistance;
         int i, j;
@@ -63,10 +63,10 @@ namespace Managers {
 
     /* Function to deallocate entities after collision */
     void Collision::clear() {
-        Entities::MovingEntity* pAux = NULL;
+        Entities::MovingEntity* pAux = nullptr;
         for (int i = 0; i < movingEntities->getSize(); i++) {
             pAux = static_cast<Entities::MovingEntity*>((*movingEntities)[i]);
-            if (pAux != NULL) {
+            if (pAux != nullptr) {
                 if (!pAux->isActive()) {
                     movingEntities->deleteEntity(i);
                     i--;

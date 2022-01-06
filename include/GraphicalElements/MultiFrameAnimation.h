@@ -32,7 +32,7 @@ namespace GraphicalElements {
             totalTime(0.0f),
             rectSize(),
             switchTime(switchTime) {
-                if (texture == NULL) {
+                if (texture == nullptr) {
                     std::cout << "ERROR: loading texture failed on SingleAnimation::SingleAnimation()." << std::endl;
                     exit(1);
                 }

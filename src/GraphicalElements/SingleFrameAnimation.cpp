@@ -5,7 +5,7 @@
 namespace GraphicalElements {
 
     SingleFrameAnimation::SingleFrameAnimation() :
-    texture(NULL) { }
+    texture(nullptr) { }
 
     SingleFrameAnimation::~SingleFrameAnimation() { }
 

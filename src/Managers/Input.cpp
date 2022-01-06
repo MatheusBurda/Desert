@@ -6,10 +6,10 @@
 
 namespace Managers {
 
-    Input* Input::instance = NULL;
+    Input* Input::instance = nullptr;
 
     Input* Input::getInstance() {
-        if (instance == NULL) {
+        if (instance == nullptr) {
             instance = new Input();
         }
         return instance;
