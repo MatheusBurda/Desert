@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Entities/Characters/Character.h"
 #include "Control/PlayerControl.h"
+#include "Entities/Characters/Character.h"
 
 namespace Entities {
 
@@ -12,11 +12,11 @@ namespace Entities {
             Control::PlayerControl pControl;
             bool isWalking;
             bool canJump;
-            int points;
+            unsigned int points;
 
         public:
             Player(Math::CoordF position = Math::CoordF(0.f, 0.f));
-            
+
             ~Player();
 
             void update(const float dt);
@@ -33,8 +33,9 @@ namespace Entities {
 
             void stopWalking();
 
-           int getPlayerPoints() const;
+            unsigned int getPlayerPoints() const;
 
+            void incrementPoints(unsigned int points);
         };
 
     }

@@ -34,8 +34,6 @@ namespace Managers {
         while (pWindow->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 pGraphicM->closeWindow();
-            if (event.type == sf::Event::Resized)
-                pGraphicM->handleWindowResize();
             if (event.type == sf::Event::KeyPressed)
                 pInputM->handleKeyPressed(event.key.code);
             if (event.type == sf::Event::KeyReleased)

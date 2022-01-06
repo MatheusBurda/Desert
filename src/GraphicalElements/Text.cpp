@@ -14,7 +14,7 @@ namespace GraphicalElements {
 
         text.setCharacterSize(TEXT_SIZE);
 
-        text.setOrigin(getSize().x / 2.0f, getSize().y / 2.0f);
+        text.setOrigin(0, 0);
 
         text.setPosition(sf::Vector2f(position.x, position.y));
 
@@ -26,7 +26,7 @@ namespace GraphicalElements {
     void Text::setTextInfo(std::string info) {
         this->info = info;
         text.setString(this->info);
-        text.setOrigin(getSize().x / 2.0f, getSize().y / 2.0f);
+
     }
 
     void Text::setPosition(Math::CoordF position) {

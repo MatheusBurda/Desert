@@ -2,6 +2,7 @@
 
 #include "Ent.h"
 #include "GraphicalElements/Text.h"
+#include "GraphicalElements/Heart.h"
 
 namespace Entities::Characters {
     class Player;
@@ -13,7 +14,10 @@ namespace GraphicalElements {
     private:
         Entities::Characters::Player* pPlayer;
         Text points;
-        
+        Math::CoordU windowSize;
+        Managers::Graphics* pGraphicM;
+        Heart* allHeart;
+
     public:
         Hud(Entities::Characters::Player* pPlayer = nullptr);
 
@@ -27,8 +31,7 @@ namespace GraphicalElements {
 
         void updatePlayerPoints();
 
-        void centerHud(Math::CoordF position);
-        
+        void updateHearts();
     };
 
 } // namespace GraphicalElements

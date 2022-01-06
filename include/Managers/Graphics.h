@@ -35,9 +35,11 @@ namespace Managers {
 
         void closeWindow();
 
-        void handleWindowResize();
+        void setWindowSize(Math::CoordU size);
 
-        sf::Vector2u getWindowSize() const;
+        Math::CoordU getWindowSize() const;
+
+        Math::CoordF getTopLeftPosition() const;
 
         void centerView(Math::CoordF pos);
 

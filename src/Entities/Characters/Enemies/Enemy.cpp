@@ -40,6 +40,7 @@ namespace Entities {
                     break;
                 case ID::player:
                     //std::cout << "Inimigo colidiu com player" << std::endl;
+                    active = false;
                     break;
                 default:
                     break;

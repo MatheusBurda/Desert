@@ -21,14 +21,13 @@ namespace Managers {
     }
 
     Graphics::Graphics() :
-    window(new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Desert")),
+    window(new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Desert", sf::Style::Titlebar | sf::Style::Close)),
     view(sf::Vector2f(WIDTH / 2, HEIGHT / 2), sf::Vector2f(WIDTH, HEIGHT)),
     texturesMap() {
         font = NULL;
     }
 
     Graphics::~Graphics() {
-
         std::map<const char*, sf::Texture*>::iterator it;
         for (it = texturesMap.begin(); it != texturesMap.end(); ++it)
             delete (it->second);
@@ -68,16 +67,21 @@ namespace Managers {
         window->close();
     }
 
-    /* Handles  resize. */
-    void Graphics::handleWindowResize() {
-        float aspectRatio = float(window->getSize().x / float(window->getSize().y));
-        view.setSize(sf::Vector2f(HEIGHT * aspectRatio, HEIGHT));
+    /* Sets window size to its parameters */
+    void Graphics::setWindowSize(Math::CoordU size) {
+        window->setSize(sf::Vector2u(size.x, size.y));
+        view.setSize(size.x, size.y);
         window->setView(view);
     }
 
     /* Returns the window size. */
-    sf::Vector2u Graphics::getWindowSize() const {
-        return window->getSize();
+    Math::CoordU Graphics::getWindowSize() const {
+        return Math::CoordU(window->getSize().x, window->getSize().y);
+    }
+
+    /* Returns the top left position of screen. */
+    Math::CoordF Graphics::getTopLeftPosition() const {
+        return Math::CoordF(window->getView().getCenter().x - window->getSize().x / 2, window->getView().getCenter().y - window->getSize().y / 2);
     }
 
     /* Changes the view position. */
@@ -121,7 +125,7 @@ namespace Managers {
         return font;
     }
 
-    sf::RenderWindow* Graphics::getWindow() const{
+    sf::RenderWindow* Graphics::getWindow() const {
         return window;
     }
 

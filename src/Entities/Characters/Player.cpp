@@ -2,7 +2,7 @@
 
 #define PLAYER_SIZE_Y 84.0f
 #define PLAYER_SIZE_X 32.0f
-#define PLAYER_LIFE 100
+#define PLAYER_LIFE 50
 #define PLAYER_JUMP_HEIGHT 100.0f
 #define PLAYER_ATTACK_COOLDOWN 1.2f
 #define PLAYER_VELOCITY 150.f
@@ -16,7 +16,7 @@ namespace Entities {
         pControl(this),
         canJump(false),
         isWalking(false),
-        points(12) {
+        points(0) {
             initialize();
         }
 
@@ -46,14 +46,27 @@ namespace Entities {
                 moveOnCollision(intersect, otherEntity);
                 canJump = true;
                 break;
-            case ID::snake:
+            case ID::snake: {
+                Character* pchar = dynamic_cast<Character*>(otherEntity);
+                if (pchar != nullptr) {
+                    if (pchar->isAttacking())
+                        life -= 5;
+                }
                 if (isAttacking())
                     points += 100;
                 break;
-            case ID::hyena:
+            }
+            case ID::hyena: {
+                life -= 10;
+                Character* pchar = dynamic_cast<Character*>(otherEntity);
+                if (pchar != nullptr) {
+                    if (pchar->isAttacking())
+                        life -= 10;
+                }
                 if (isAttacking())
                     points += 200;
                 break;
+            }
             default:
                 break;
             }
@@ -91,8 +104,12 @@ namespace Entities {
             isWalking = false;
         }
 
-        int Player::getPlayerPoints() const{
+        unsigned int Player::getPlayerPoints() const {
             return points;
+        }
+
+        void Player::incrementPoints(unsigned int points) {
+            this->points += points;
         }
 
     }
