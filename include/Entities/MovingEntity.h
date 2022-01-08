@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Entity.h"
 #include "../GraphicalElements/MultiFrameAnimation.h"
+#include "Entity.h"
 
 namespace Entities {
-    
+
     class MovingEntity : public Entity {
     protected:
         Math::CoordF velocity;
@@ -14,7 +14,10 @@ namespace Entities {
         GraphicalElements::MultiFrameAnimation sprite;
 
     public:
-        MovingEntity(Math::CoordF position = Math::CoordF(0.f, 0.f), Math::CoordF size = Math::CoordF(0.f, 0.f), ID id = empty);
+        MovingEntity(Math::CoordF position = Math::CoordF(0.f, 0.f),
+            Math::CoordF size = Math::CoordF(0.f, 0.f),
+            ID id = empty,
+            Math::CoordF velocity = Math::CoordF(0.f, 0.f));
 
         virtual ~MovingEntity();
 
@@ -33,13 +36,14 @@ namespace Entities {
         void setFacingLeft(const bool left);
 
         void setFacingLeft();
-        
+
         const bool isActive() const;
-        
+
         Math::CoordF getVelocity() const;
 
         void setVelocity(Math::CoordF velo);
 
+        void moveOnCollision(Math::CoordF intersect, Entities::Entity* other);
     };
 
 } // namespace Entities

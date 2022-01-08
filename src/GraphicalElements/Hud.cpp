@@ -8,9 +8,11 @@ namespace GraphicalElements {
 
     Hud::Hud(Entities::Characters::Player* pPlayer) :
     Ent(),
-    points(Math::CoordF(500, 700), "00000"),
+    points(),
     pPlayer(pPlayer),
-    pGraphicM(Managers::Graphics::getInstance()) {
+    pGraphicM(Managers::Graphics::getInstance()),
+    coin(),
+    coinsText() {
         allHeart = new GraphicalElements::Heart[5];
 
         initialize();
@@ -24,6 +26,8 @@ namespace GraphicalElements {
         points.render();
         for (int i = 0; i < 5; i++)
             allHeart[i].render();
+        coin.render();
+        coinsText.render();
     }
 
     void Hud::update(const float dt) {
@@ -33,6 +37,8 @@ namespace GraphicalElements {
         points.setPosition(Math::CoordF(position.x + 5, position.y));
 
         updateHearts();
+
+        updateCoins(dt);
     }
 
     void Hud::initialize() {
@@ -90,6 +96,20 @@ namespace GraphicalElements {
                 allHeart[i].update(HeartID::empty, Math::CoordF(position.x + 5 + 1 * i + HEART_SIZE_X * i, position.y + points.getSize().y + 17));
             }
         }
+    }
+
+    void Hud::updateCoins(const float dt) {
+        coin.update(Math::CoordF(position.x + 5, position.y + points.getSize().y + 17 + HEART_SIZE_Y), dt);
+
+        coinsText.setPosition(Math::CoordF(position.x + 35, position.y + points.getSize().y + 17 + HEART_SIZE_Y));
+
+        std::string coinsString = "x";
+
+        unsigned int coins = pPlayer->getCoins();
+
+        coinsString += std::to_string(coins);
+
+        coinsText.setTextInfo(coinsString);
     }
 
 } // namespace GraphicalElements

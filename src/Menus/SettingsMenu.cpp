@@ -21,7 +21,7 @@ namespace Menus {
         bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 100), "1280x720");
         vectorOfButtons.push_back(bt);
 
-        bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 200), "toggle sound on/off");
+        bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 200), "Sound on/off");
         vectorOfButtons.push_back(bt);
 
         bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 300), "return");

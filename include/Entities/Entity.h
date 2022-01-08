@@ -13,7 +13,8 @@ namespace Entities {
         platform,
         snake,
         hyena,
-        cactus
+        cactus,
+        coin
 
     };
 

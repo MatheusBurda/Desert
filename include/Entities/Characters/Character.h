@@ -27,8 +27,6 @@ namespace Entities {
 
             void receiveDamage(const int damage);
 
-            void moveOnCollision(Math::CoordF intersect, Entities::Entity* other);
-
             virtual void update(const float dt) = 0;
 
             virtual void initialize() = 0;

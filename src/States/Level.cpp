@@ -8,7 +8,8 @@ namespace States {
     staticEntitiesList(),
     movingEntitiesList(),
     collisionManager(&movingEntitiesList, &staticEntitiesList),
-    hud(p1) {
+    hud(p1),
+    pGraphicM(Managers::Graphics::getInstance()) {
         // background.initialize("./assets/Background/Background.png", Math::CoordF(1280 / 2, 720 / 2), Math::CoordF(1280, 720));
 
         /* Cria plataformas */
@@ -17,6 +18,14 @@ namespace States {
         for (int i = 0; i < 20; i++) {
             tmp = new Entities::Obstacles::Platform(Math::CoordF(96.f * i, 500.f));
             staticEntitiesList.addEntity(tmp);
+        }
+       
+        /* Coins de teste */
+        Entities::Loot::Coin* coin;
+
+        for (int i = 0; i < 20; i++) {
+            coin = new Entities::Loot::Coin(Math::CoordF(300.f + 50 * i, 300.f), Math::CoordF(0.f, 0.f));
+            movingEntitiesList.addEntity(coin);
         }
 
         /* Cria inimigos */
@@ -30,11 +39,12 @@ namespace States {
 
         movingEntitiesList.addEntity(p1);
     }
-
     Level::~Level() {
     }
 
     void Level::update(const float dt) {
+        pGraphicM->centerView(player->getPosition());
+
         for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++) {
             movingEntitiesList[i]->update(dt);
         }
@@ -61,7 +71,6 @@ namespace States {
     void Level::resetState() {
         /* movingEntitiesList.cleanList();
         staticEntitiesList.cleanList(); */
-
     }
 
 } // namespace States

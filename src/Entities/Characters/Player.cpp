@@ -18,11 +18,10 @@ namespace Entities {
         isWalking(false),
         points(0) {
             initialize();
+            coins = 85;
         }
 
-        Player::~Player() { 
-
-            
+        Player::~Player() {
         }
 
         void Player::update(const float dt) {
@@ -70,6 +69,15 @@ namespace Entities {
                     points += 200;
                 break;
             }
+            case ID::coin: {
+                coins++;
+                if (coins >= 100) {
+                    coins -= 100;
+                    life += 10;
+                    if (life > 50)
+                        life = 50;
+                }
+            }
             default:
                 break;
             }
@@ -113,6 +121,10 @@ namespace Entities {
 
         void Player::incrementPoints(unsigned int points) {
             this->points += points;
+        }
+
+        unsigned int Player::getCoins() const {
+            return coins;
         }
 
     }
