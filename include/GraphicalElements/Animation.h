@@ -17,7 +17,7 @@ namespace GraphicalElements {
 
         virtual ~Animation();
 
-        void render();
+        virtual void render();
     };
 
 } // namespace GraphicalElements

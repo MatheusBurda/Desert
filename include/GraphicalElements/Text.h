@@ -1,16 +1,23 @@
 #pragma once
 
-#include "Math/CoordTL.h"
 #include "Managers/Graphics.h"
+#include "Math/CoordTL.h"
 
 #include <SFML/Graphics.hpp>
 #include <string>
 
 namespace GraphicalElements {
 
+    enum TextAlignment {
+        left,
+        center,
+        right
+    };
+
     class Text {
     private:
         std::string info;
+        
         sf::Text text;
 
         static Managers::Graphics* pGraphicM;
@@ -28,12 +35,13 @@ namespace GraphicalElements {
 
         void setFontSize(const unsigned int size);
 
+        void setTextAlignment(TextAlignment option);
+
         Math::CoordF getSize() const;
 
         void render();
 
         std::string getInfo() const;
-    
     };
 
 } // namespace GraphicalElements

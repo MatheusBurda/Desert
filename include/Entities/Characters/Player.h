@@ -13,6 +13,7 @@ namespace Entities {
             bool isWalking;
             bool canJump;
             unsigned int points;
+            unsigned int coins;
 
         public:
             Player(Math::CoordF position = Math::CoordF(0.f, 0.f));
@@ -36,6 +37,9 @@ namespace Entities {
             unsigned int getPlayerPoints() const;
 
             void incrementPoints(unsigned int points);
+
+            unsigned int getCoins() const;
+
         };
 
     }

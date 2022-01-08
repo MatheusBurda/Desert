@@ -1,7 +1,7 @@
-#include "Game.h"
+#include "States/Game.h"
 
 int main() {
-    Game Desert;
+    States::Game Desert;
 
     return 0;
 }

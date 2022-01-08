@@ -10,14 +10,14 @@ namespace States {
         newGame,
         playing,
         pauseMenu,
-        loadGame,
+        settings,
         leaderboard,
         endGame
     };
 
     class State {
 
-    private:
+    protected:
         StateMachine* pSM;
         stateID id;
 
@@ -32,7 +32,7 @@ namespace States {
 
         States::stateID getID() const;
 
-        virtual void update(float dt) = 0;
+        virtual void update(const float dt) = 0;
 
         virtual void render() = 0;
 

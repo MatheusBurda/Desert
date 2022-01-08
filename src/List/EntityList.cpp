@@ -52,4 +52,8 @@ namespace List {
         return list[index];
     }
 
+    void EntityList::cleanList(){
+        list.clear();
+    }
+
 } // namespace List

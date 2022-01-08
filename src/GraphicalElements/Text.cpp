@@ -14,7 +14,7 @@ namespace GraphicalElements {
 
         text.setCharacterSize(TEXT_SIZE);
 
-        text.setOrigin(0, 0);
+        setTextAlignment(TextAlignment::left);
 
         text.setPosition(sf::Vector2f(position.x, position.y));
 
@@ -26,7 +26,6 @@ namespace GraphicalElements {
     void Text::setTextInfo(std::string info) {
         this->info = info;
         text.setString(this->info);
-
     }
 
     void Text::setPosition(Math::CoordF position) {
@@ -41,9 +40,26 @@ namespace GraphicalElements {
         text.setCharacterSize(size);
     }
 
+    void Text::setTextAlignment(TextAlignment option) {
+        switch (option) {
+        case TextAlignment::left:
+            text.setOrigin(0, 0);
+            break;
+        case TextAlignment::center:
+            text.setOrigin(getSize().x / 2, getSize().y);
+            break;
+        case TextAlignment::right:
+            text.setOrigin(getSize().x , 0);
+            break;
+        default:
+            text.setOrigin(getSize().x / 2, getSize().y);
+            break;
+        }
+    }
+
     Math::CoordF Text::getSize() const {
         sf::FloatRect textRect = text.getLocalBounds();
-        return Math::CoordF(textRect.width, textRect.height);
+        return Math::CoordF( textRect.width, textRect.height);
     }
 
     void Text::render() {

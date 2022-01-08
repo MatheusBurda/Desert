@@ -3,6 +3,7 @@
 #include "Ent.h"
 #include "GraphicalElements/Text.h"
 #include "GraphicalElements/Heart.h"
+#include "GraphicalElements/CoinAnimation.h"
 
 namespace Entities::Characters {
     class Player;
@@ -17,6 +18,8 @@ namespace GraphicalElements {
         Math::CoordU windowSize;
         Managers::Graphics* pGraphicM;
         Heart* allHeart;
+        CoinAnimation coin;
+        Text coinsText;
 
     public:
         Hud(Entities::Characters::Player* pPlayer = nullptr);
@@ -32,6 +35,8 @@ namespace GraphicalElements {
         void updatePlayerPoints();
 
         void updateHearts();
+
+        void updateCoins(const float dt);
     };
 
 } // namespace GraphicalElements
