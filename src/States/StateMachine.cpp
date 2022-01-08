@@ -6,7 +6,10 @@
 
 namespace States {
 
-    StateMachine::StateMachine() { }
+    StateMachine::StateMachine() {
+        lastStateID = stateID::unknown;
+        currentStateID = stateID::unknown;
+    }
 
     StateMachine::~StateMachine() {
         std::map<stateID, State*>::iterator it;
@@ -17,12 +20,16 @@ namespace States {
     }
 
     void StateMachine::changeCurrentState(States::stateID id) {
+        lastStateID = currentStateID;
         currentStateID = id;
         mapOfStates[currentStateID]->resetState();
     }
 
-    void StateMachine::execCurrentState(float dt) {
+    void StateMachine::updateCurrentState(const float dt) {
         mapOfStates[currentStateID]->update(dt);
+    }
+
+    void StateMachine::renderCurrentState() {
         mapOfStates[currentStateID]->render();
     }
 
@@ -36,6 +43,10 @@ namespace States {
             exit(1);
         }
         mapOfStates.insert(std::pair<stateID, State*>(pState->getID(), pState));
+    }
+
+    States::stateID StateMachine::getLastStateID() const {
+        return lastStateID;
     }
 
 } // namespace States

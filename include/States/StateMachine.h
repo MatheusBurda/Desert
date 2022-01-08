@@ -8,6 +8,7 @@ namespace States {
     class StateMachine {
     protected:
         States::stateID currentStateID;
+        States::stateID lastStateID;
 
         std::map<stateID, State*> mapOfStates;
 
@@ -18,11 +19,15 @@ namespace States {
 
         void changeCurrentState(States::stateID id);
 
-        void execCurrentState(const float dt);
+        void updateCurrentState(const float dt);
+
+        void renderCurrentState();
 
         States::stateID getCurrentStateID() const;
 
         void insertState(States::State* pState);
+
+        States::stateID getLastStateID() const;
     };
 
 }

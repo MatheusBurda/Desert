@@ -12,28 +12,21 @@ namespace List {
         class Node {
         private:
             Node<TE>* pNext;
-            Node<TE>* pPrevious;
             TE* pInfo;
 
         public:
             Node() {
                 pNext = nullptr;
-                pPrevious = nullptr;
                 pInfo = nullptr;
             }
             ~Node() {
                 pNext = nullptr;
-                pPrevious = nullptr;
                 pInfo = nullptr;
             }
             /* Set next template Node - internal list use */
             void setNext(Node<TE>* pNext) { this->pNext = pNext; }
             /* Get next node of the list */
             Node<TE>* getNext() { return pNext; }
-            /* Set previous node */
-            void setPrevious(Node<TE>* pPrevious) { this->pPrevious = pPrevious; }
-            /* Get previous node */
-            Node<TE>* getPrevious() { return pPrevious; }
             /* Sets the pointer the template Node points to*/
             void setInfo(TE* pInfo) { this->pInfo = pInfo; }
             /* Returns the pointer the template Node points to. */
@@ -63,16 +56,12 @@ namespace List {
 
     template <class TL>
     List<TL>::List() :
-    pFirst(),
-    pLast(),
-    size(0) {
-        clear();
-    }
+    pFirst(nullptr),
+    pLast(nullptr),
+    size(0) { }
 
     template <class TL>
-    List<TL>::~List() {
-        clear();
-    }
+    List<TL>::~List() { }
 
     /* Delete the whole List */
     template <class TL>
@@ -82,13 +71,14 @@ namespace List {
 
         paux1 = pFirst;
         paux2 = paux1;
-        
-        while (paux1 != nullptr) {
+        int i = 0;
+
+        while (paux1 != nullptr && i < size) {
             delete (paux1->getInfo());
             paux2 = paux1->getNext();
             delete (paux1);
             paux1 = paux2;
-            size--;
+            i++;
         }
 
         pFirst = nullptr;
@@ -104,7 +94,6 @@ namespace List {
                 pLast = pNode;
             } else {
                 pLast->setNext(pNode);
-                pNode->setPrevious(pLast);
                 pLast = pNode;
             }
             size++;
@@ -158,15 +147,13 @@ namespace List {
             if (pAux->getInfo() == pInfo) {
                 if (pAux == pFirst) {
                     pFirst = pAux->getNext();
-                    pFirst->setPrevious(nullptr);
-                } //                
+                } //
                 else if (pAux == pLast) {
                     pLast = pPrev;
                     pPrev->setNext(nullptr);
-                }//
+                } //
                 else {
                     pPrev->setNext(pAux->getNext());
-                    pPrev->getNext()->setPrevious(pPrev);
                 }
 
                 delete (pAux);
@@ -198,15 +185,13 @@ namespace List {
 
         if (pAux == pFirst) {
             pFirst = pAux->getNext();
-            pFirst->setPrevious(nullptr);
         } //
         else if (pAux == pLast) {
             pLast = pPrev;
             pPrev->setNext(nullptr);
-        }//
+        } //
         else {
             pPrev->setNext(pAux->getNext());
-            pPrev->getNext()->setPrevious(pPrev);
         }
 
         TL* pInfo = pAux->getInfo();

@@ -1,19 +1,20 @@
 #pragma once
 
+#include "Control/MenuControl.h"
 #include "GraphicalElements/Button.h"
 #include <vector>
 
 namespace Menus {
 
     class Menu {
-    private:
+    protected:
         std::vector<GraphicalElements::Button*> vectorOfButtons;
         std::vector<GraphicalElements::Button*>::iterator it;
         int selected;
         int min;
         int max;
-       /*  MenuControl control;
-        Background back; */
+        Control::MenuControl control;
+        /* Background back; */
         bool active;
 
     public:

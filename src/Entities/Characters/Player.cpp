@@ -20,7 +20,10 @@ namespace Entities {
             initialize();
         }
 
-        Player::~Player() { }
+        Player::~Player() { 
+
+            
+        }
 
         void Player::update(const float dt) {
             Character::incrementAttackTime(dt);

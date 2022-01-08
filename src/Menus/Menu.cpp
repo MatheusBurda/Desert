@@ -8,8 +8,8 @@ namespace Menus {
     selected(0),
     min(0),
     max(2),
-    /* control(IM, this),
-    back(sf::Vector2f(0, 0), backPath), */
+    control(this),
+    /*back(sf::Vector2f(0, 0), backPath), */
     active(false) {
         /*  GraphicManager* GM = GraphicManager::getInstance();
          back.changePos(sf::Vector2f(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2)); */
@@ -26,7 +26,7 @@ namespace Menus {
     }
 
     void Menu::updateView() {
-        Managers::Graphics::getInstance()->centerView(Math::CoordF(Managers::Graphics::getInstance()->getWindowSize().x, Managers::Graphics::getInstance()->getWindowSize().y));
+        Managers::Graphics::getInstance()->centerView(Math::CoordF(Managers::Graphics::getInstance()->getWindowSize().x/2, Managers::Graphics::getInstance()->getWindowSize().y/2));
     }
 
     /* Make the menu selection go Down */

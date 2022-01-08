@@ -17,6 +17,7 @@ namespace GraphicalElements {
     class Text {
     private:
         std::string info;
+        
         sf::Text text;
 
         static Managers::Graphics* pGraphicM;

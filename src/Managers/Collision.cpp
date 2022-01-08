@@ -68,8 +68,10 @@ namespace Managers {
             pAux = static_cast<Entities::MovingEntity*>((*movingEntities)[i]);
             if (pAux != nullptr) {
                 if (!pAux->isActive()) {
-                    movingEntities->deleteEntity(i);
+                    movingEntities->deleteEntity(pAux);
                     i--;
+                    if (i < 0)
+                        i = -1;
                 }
             }
         }
