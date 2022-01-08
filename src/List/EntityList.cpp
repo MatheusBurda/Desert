@@ -9,15 +9,15 @@ namespace List {
     }
 
     void EntityList::addEntity(Entities::Entity* pEntity) {
-        if (pEntity == NULL)
-            std::cout << "Pointer to entity NULL on addEntity" << std::endl;
+        if (pEntity == nullptr)
+            std::cout << "Pointer to entity nullptr on addEntity" << std::endl;
 
         list.push(pEntity);
     }
 
     Entities::Entity* EntityList::removeEntity(Entities::Entity* pEntity) {
-        if (pEntity == NULL)
-            std::cout << "Pointer to entity NULL on removeEntity" << std::endl;
+        if (pEntity == nullptr)
+            std::cout << "Pointer to entity nullptr on removeEntity" << std::endl;
 
         return list.pop(pEntity);
     }
@@ -27,7 +27,7 @@ namespace List {
     }
 
     void EntityList::deleteEntity(Entities::Entity* pEntity) {
-        Entities::Entity* tmp = NULL;
+        Entities::Entity* tmp = nullptr;
 
         tmp = list.pop(pEntity);
 
@@ -36,7 +36,7 @@ namespace List {
     }
 
     void EntityList::deleteEntity(unsigned int index) {
-        Entities::Entity* tmp = NULL;
+        Entities::Entity* tmp = nullptr;
 
         tmp = list.pop(index);
 

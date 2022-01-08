@@ -19,7 +19,7 @@ namespace Control {
         std::string attack;
 
     public:
-        PlayerControl(Entities::Characters::Player* pP = NULL);
+        PlayerControl(Entities::Characters::Player* pP = nullptr);
 
         ~PlayerControl();
 

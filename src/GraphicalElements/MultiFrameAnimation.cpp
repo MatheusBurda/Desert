@@ -19,7 +19,7 @@ namespace GraphicalElements {
 
         SingleAnimation* tmp = new SingleAnimation(path, imageCount, switchTime);
 
-        if (tmp == NULL) {
+        if (tmp == nullptr) {
             std::cout << "ERROR: Could not create Animation on MultiFrameAnimation::addNewAnimation!" << std::endl;
             exit(1);
         }

@@ -13,12 +13,12 @@ namespace Control {
     attack("Space") { }
 
     PlayerControl::~PlayerControl() {
-        pPlayer = NULL;
+        pPlayer = nullptr;
     }
 
     void PlayerControl::notifyPressed(std::string key) {
-        if (pPlayer == NULL) {
-            std::cout << "ERROR: pointer to player NULL on PlayerControl::notify()." << std::endl;
+        if (pPlayer == nullptr) {
+            std::cout << "ERROR: pointer to player nullptr on PlayerControl::notify()." << std::endl;
             exit(7);
         }
 
@@ -36,8 +36,8 @@ namespace Control {
     }
 
     void PlayerControl::notifyReleased(std::string key) {
-        if (pPlayer == NULL) {
-            std::cout << "ERROR: pointer to player NULL on PlayerControl::notify()." << std::endl;
+        if (pPlayer == nullptr) {
+            std::cout << "ERROR: pointer to player nullptr on PlayerControl::notify()." << std::endl;
             exit(7);
         }
 
