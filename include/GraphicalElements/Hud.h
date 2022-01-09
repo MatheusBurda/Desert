@@ -37,6 +37,8 @@ namespace GraphicalElements {
         void updateHearts();
 
         void updateCoins(const float dt);
+
+        void setPlayer(Entities::Characters::Player* pPlayer);
     };
 
 } // namespace GraphicalElements

@@ -27,9 +27,11 @@ namespace States {
         Managers::Collision collisionManager;
         GraphicalElements::Hud hud;
         Managers::Graphics* pGraphicM;
+        bool levelEnded;
+        int playerPoints;
 
     public:
-        Level(StateMachine* pSM = nullptr, Entities::Characters::Player* p1 = nullptr);
+        Level(StateMachine* pSM = nullptr);
 
         ~Level();
 
@@ -38,6 +40,10 @@ namespace States {
         void render();
 
         void resetState();
+
+        void endLevel();
+
+        int getPlayerPoints() const;
     };
 
 } // namespace States

@@ -59,11 +59,11 @@ namespace Entities {
                 break;
             }
             case ID::hyena: {
-                life -= 10;
+                life -= 30;
                 Character* pchar = dynamic_cast<Character*>(otherEntity);
                 if (pchar != nullptr) {
                     if (pchar->isAttacking())
-                        life -= 10;
+                        life -= 30;
                 }
                 if (isAttacking())
                     points += 200;

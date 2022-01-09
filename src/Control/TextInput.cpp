@@ -41,4 +41,12 @@ namespace Control {
 
     void TextInput::notifyReleased(std::string key) { }
 
+    std::string TextInput::getString() const{
+        return text;
+    }
+
+    void TextInput::reset(){
+        text = "";
+    }
+
 } // namespace Control

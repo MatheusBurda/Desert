@@ -3,7 +3,6 @@
 #include <cstring>
 #include <iostream>
 
-#define FONT_PATH "./assets/Fonts/MainFont.ttf"
 #define WIDTH 1280
 #define HEIGHT 720
 
@@ -23,9 +22,8 @@ namespace Managers {
     Graphics::Graphics() :
     window(new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Desert", sf::Style::Titlebar | sf::Style::Close)),
     view(sf::Vector2f(WIDTH / 2, HEIGHT / 2), sf::Vector2f(WIDTH, HEIGHT)),
-    texturesMap() {
-        font = nullptr;
-    }
+    texturesMap(),
+    fontsMap() { }
 
     Graphics::~Graphics() {
         std::map<const char*, sf::Texture*>::iterator it;
@@ -94,7 +92,7 @@ namespace Managers {
 
     /* Returns a texture to be used by an entity. */
     sf::Texture* Graphics::loadTexture(const char* path) {
-        /* Tries to find an existing texture linked by the id. */
+        /* Tries to find an existing texture linked by the path to it. */
         std::map<const char*, sf::Texture*>::iterator it = texturesMap.begin();
         while (it != texturesMap.end()) {
             if (!strcmp(it->first, path))
@@ -102,7 +100,7 @@ namespace Managers {
             it++;
         }
 
-        /* If not found, have to load it. */
+        /* If not found, must load it. */
         sf::Texture* tex = new sf::Texture();
 
         if (!tex->loadFromFile(path)) {
@@ -116,14 +114,25 @@ namespace Managers {
     }
 
     /* Returns a font pointer to be used by texts. */
-    sf::Font* Graphics::getFont() {
-        if (!font) {
-            font = new sf::Font();
-            if (!font->loadFromFile(FONT_PATH)) {
-                std::cout << "Error loading Font!" << std::endl;
-                exit(1);
-            }
+    sf::Font* Graphics::loadFont(const char* path) {
+        /* Tries to find an existing font linked by the path to it */
+        std::map<const char*, sf::Font*>::iterator it = fontsMap.begin();
+        while (it != fontsMap.end()) {
+            if (!strcmp(it->first, path))
+                return it->second;
+            it++;
         }
+
+        /* If not found, must load it. */
+        sf::Font* font = new sf::Font();
+
+        if (!font->loadFromFile(path)) {
+            std::cout << "ERROR loading file " << path << std::endl;
+            exit(1);
+        }
+
+        fontsMap.insert(std::pair<const char*, sf::Font*>(path, font));
+
         return font;
     }
 

@@ -13,7 +13,6 @@ namespace States {
     private:
         Managers::Graphics* pGraphicManager;
         Managers::Events* pEventManager;
-        Entities::Characters::Player* p1;
 
         sf::Clock clock;
         float dt;
