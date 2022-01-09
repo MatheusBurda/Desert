@@ -4,9 +4,10 @@
 
 namespace Menus {
 
-    PauseMenuState::PauseMenuState(States::StateMachine* pSM) :
+    PauseMenuState::PauseMenuState(States::StateMachine* pSM, States::Level* plvl) :
     Menu(),
-    State(pSM, States::stateID::pauseMenu) {
+    State(pSM, States::stateID::pauseMenu),
+    plvl(plvl) {
         Managers::Graphics* GM = Managers::Graphics::getInstance();
 
         GraphicalElements::Button* bt = NULL;
@@ -48,6 +49,7 @@ namespace Menus {
                 break;
             case 2:
                 changeState(States::stateID::mainMenu);
+                plvl->endLevel();
                 break;
             default:
                 break;

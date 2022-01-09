@@ -6,6 +6,8 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
+#define FONT_PATH "./assets/Fonts/MainFont.ttf"
+
 namespace GraphicalElements {
 
     enum TextAlignment {
@@ -17,13 +19,13 @@ namespace GraphicalElements {
     class Text {
     private:
         std::string info;
-        
+
         sf::Text text;
 
         static Managers::Graphics* pGraphicM;
 
     public:
-        Text(Math::CoordF position = Math::CoordF(0, 0), std::string info = "");
+        Text(Math::CoordF position = Math::CoordF(0, 0), std::string info = "", const char* path = FONT_PATH);
 
         ~Text();
 

@@ -14,7 +14,7 @@ namespace Menus {
         States::Game* pGame;
 
     public:
-        MainMenuState(States::Game* pG = NULL);
+        MainMenuState(States::Game* pG = nullptr);
 
         ~MainMenuState();
 

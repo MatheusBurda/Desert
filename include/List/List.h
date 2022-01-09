@@ -83,6 +83,7 @@ namespace List {
 
         pFirst = nullptr;
         pLast = nullptr;
+        size = 0;
     }
 
     /* Add new Node to List - internal use */

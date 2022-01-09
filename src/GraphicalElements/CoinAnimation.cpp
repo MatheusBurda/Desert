@@ -8,11 +8,10 @@ namespace GraphicalElements {
     CoinAnimation::CoinAnimation() :
     Animation(),
     texture(COIN_PATH, COIN_IMAGE_COUNT, 0.2f) {
-        body.setSize(sf::Vector2f(30,30));
+        body.setSize(sf::Vector2f(30, 30));
     }
 
-    CoinAnimation::~CoinAnimation() {
-    }
+    CoinAnimation::~CoinAnimation() { }
 
     void CoinAnimation::update(Math::CoordF position, const float dt) {
         texture.update(dt, true);

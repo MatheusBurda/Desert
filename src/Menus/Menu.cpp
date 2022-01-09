@@ -35,7 +35,7 @@ namespace Menus {
             vectorOfButtons[selected]->select(false);
             selected++;
             if (selected > max)
-                selected = max;
+                selected = min;
             vectorOfButtons[selected]->select(true);
         }
     }
@@ -46,7 +46,7 @@ namespace Menus {
             vectorOfButtons[selected]->select(false);
             selected--;
             if (selected < min)
-                selected = min;
+                selected = max;
             vectorOfButtons[selected]->select(true);
         }
     }

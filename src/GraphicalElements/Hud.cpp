@@ -112,4 +112,8 @@ namespace GraphicalElements {
         coinsText.setTextInfo(coinsString);
     }
 
+    void Hud::setPlayer(Entities::Characters::Player* pPlayer){
+        this->pPlayer = pPlayer;
+    }
+
 } // namespace GraphicalElements

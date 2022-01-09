@@ -6,11 +6,11 @@ namespace GraphicalElements {
 
     Managers::Graphics* Text::pGraphicM = Managers::Graphics::getInstance();
 
-    Text::Text(Math::CoordF position, std::string info) :
+    Text::Text(Math::CoordF position, std::string info, const char* path) :
     info(info) {
         text.setString(info);
 
-        text.setFont(*pGraphicM->getFont());
+        text.setFont(*pGraphicM->loadFont(path));
 
         text.setCharacterSize(TEXT_SIZE);
 

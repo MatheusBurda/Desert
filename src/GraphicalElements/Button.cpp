@@ -5,6 +5,7 @@
 #define BUTTON_HEIGHT 80
 #define BUTTON_WIDTH 300
 #define BUTTON_TEXT_COLOR 77.6, 68.2, 44.3 // R, G, B
+#define FONT_SIZE 30
 
 namespace GraphicalElements {
 
@@ -23,7 +24,7 @@ namespace GraphicalElements {
 
         body.setTexture(defaultTexture);
 
-        textInfo.setFontSize(30);
+        textInfo.setFontSize(FONT_SIZE);
 
         textInfo.setTextAlignment(TextAlignment::center);
 

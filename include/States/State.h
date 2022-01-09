@@ -12,7 +12,7 @@ namespace States {
         pauseMenu,
         settings,
         leaderboard,
-        endGame
+        gameOver
     };
 
     class State {

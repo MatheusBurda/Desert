@@ -1,5 +1,7 @@
 #include "States/Game.h"
 
+#include "Menus/GameOverMenu.h"
+#include "Menus/LeaderboardMenu.h"
 #include "Menus/MainMenu.h"
 #include "Menus/PauseMenu.h"
 #include "Menus/SettingsMenu.h"
@@ -9,21 +11,26 @@ namespace States {
 
     Game::Game() :
     pGraphicManager(Managers::Graphics::getInstance()),
-    pEventManager(Managers::Events::getInstance()),
-    p1(new Entities::Characters::Player(Math::CoordF(200.f, 400.f))) {
+    pEventManager(Managers::Events::getInstance()) {
         clock.restart();
         dt = 0;
 
-        State* states = new States::Level(this, p1);
+        State* states = new States::Level(this);
+        insertState(states);
+
+        states = static_cast<State*>(new Menus::PauseMenuState(this, dynamic_cast<States::Level*>(mapOfStates[stateID::playing])));
         insertState(states);
 
         states = static_cast<State*>(new Menus::MainMenuState(this));
         insertState(states);
 
-        states = static_cast<State*>(new Menus::PauseMenuState(this));
+        states = static_cast<State*>(new Menus::SettingsMenu(this));
         insertState(states);
 
-        states = static_cast<State*>(new Menus::SettingsMenu(this));
+        states = static_cast<State*>(new Menus::LeaderboardMenu(this));
+        insertState(states);
+
+        states = static_cast<State*>(new Menus::GameOverMenu(this, dynamic_cast<States::Level*>(mapOfStates[stateID::playing])));
         insertState(states);
 
         changeCurrentState(stateID::mainMenu);
