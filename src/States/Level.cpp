@@ -23,6 +23,7 @@ namespace States {
 
         collisionManager.collide();
 
+        pGraphicM->centerView(player->getPosition());
         hud.update(dt);
 
         if (player->getLife() <= 0) {
@@ -42,7 +43,6 @@ namespace States {
         for (unsigned int i = 0; i < movingEntitiesList.getSize(); i++) {
             movingEntitiesList[i]->render();
         }
-        pGraphicM->centerView(player->getPosition());
 
         hud.render();
     }

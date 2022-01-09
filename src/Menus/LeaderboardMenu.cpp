@@ -79,7 +79,7 @@ namespace Menus {
             std::getline(file, pointsString);
             std::getline(file, name);
 
-            textString = std::to_string((i + 1) / 10) + std::to_string((i + 1) % 10) + " - " + name;
+            textString = std::to_string((i + 1) / 10) + std::to_string((i + 1) % 10) + " - " + name + " ";
 
             if (pointsString.length() > 0) {
 
