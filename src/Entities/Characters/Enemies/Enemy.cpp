@@ -2,16 +2,18 @@
 
 #include "Entities/Characters/Player.h"
 
+#include "Entities/Obstacles/Quicksand.h"
+
 namespace Entities {
 
     namespace Characters {
 
         namespace Enemies {
 
-            Enemy::Enemy(Math::CoordF position, Math::CoordF size, ID id, int life, Entities::Characters::Player* pP, const float atckCooldown) :
-            Character(position, size, id, life, atckCooldown),
-            pPlayer(pP) {
-            }
+            Enemy::Enemy(Math::CoordF position, Math::CoordF size, ID id, int life, Entities::Characters::Player* pP, const float atckCooldown, const float attackingTime, const unsigned int points) :
+            Character(position, size, id, life, atckCooldown, attackingTime),
+            pPlayer(pP),
+            points(points) { }
 
             Enemy::~Enemy() {
                 pPlayer = nullptr;
@@ -35,15 +37,37 @@ namespace Entities {
 
             void Enemy::collide(Entity* otherEntity, Math::CoordF intersect) {
                 switch (otherEntity->getId()) {
-                case ID::platform:
+                case ID::platform: {
                     moveOnCollision(intersect, otherEntity);
                     break;
-                case ID::player:
-                    //std::cout << "Inimigo colidiu com player" << std::endl;
-                    active = false;
+                }
+                case ID::player: {
+                    Character* pchar = dynamic_cast<Character*>(otherEntity);
+                    if (pchar != nullptr) {
+                        if (isAttacking() && !pchar->isAttacking())
+                            pchar->receiveDamage(getDamage());
+                    }
                     break;
+                }
+                case ID::cactus: {
+                    moveOnCollision(intersect, otherEntity);
+                    break;
+                }
+                case ID::quicksand: {
+                    Entities::Obstacles::Quicksand* pQck = dynamic_cast<Entities::Obstacles::Quicksand*>(otherEntity);
+                    moveOnCollision(intersect, otherEntity);
+                    velocity *= pQck->getSlowness();
+                    break;
+                }
                 default:
                     break;
+                }
+
+                if (life < 0) {
+                    active = false;
+                    if (pPlayer != nullptr) {
+                        pPlayer->incrementPoints(points);
+                    }
                 }
             }
 

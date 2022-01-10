@@ -16,6 +16,7 @@ namespace Entities {
 
             protected:
                 float playerDistance;
+                const unsigned int points;
 
             public:
                 Enemy(Math::CoordF position = Math::CoordF(0.f, 0.f),
@@ -23,7 +24,9 @@ namespace Entities {
                     ID id = empty,
                     int life = 1,
                     Entities::Characters::Player* pP = nullptr,
-                    const float atckCooldown = 1.0f);
+                    const float atckCooldown = 1.0f,
+                    const float attackingTime = 0.0f,
+                    const unsigned int points = 100);
 
                 virtual ~Enemy();
 

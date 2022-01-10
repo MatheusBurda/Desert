@@ -58,6 +58,9 @@ namespace States {
                 staticEntitiesList.addEntity(tmp);
             }
 
+            tmp = new Entities::Obstacles::Cactus(Math::CoordF(450.f, 450.f));
+            staticEntitiesList.addEntity(tmp);
+
             Entities::Characters::Player* p1 = new Entities::Characters::Player(Math::CoordF(100.f, 300.f));
             movingEntitiesList.addEntity(p1);
 
@@ -81,10 +84,6 @@ namespace States {
             movingEntitiesList.addEntity(snake);
 
             snake = new Entities::Characters::Enemies::Snake(Math::CoordF(550.f, 300.f), player);
-            snake->setVelocity(Math::CoordF(0.0f, 0.0f));
-            movingEntitiesList.addEntity(snake);
-
-            snake = new Entities::Characters::Enemies::Snake(Math::CoordF(450.f, 300.f), player);
             snake->setVelocity(Math::CoordF(0.0f, 0.0f));
             movingEntitiesList.addEntity(snake);
 

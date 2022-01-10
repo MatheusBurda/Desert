@@ -7,6 +7,7 @@ namespace Entities {
         active = true;
         this->velocity = velocity;
         facingLeft = false;
+        damage = 0;
     }
 
     MovingEntity::~MovingEntity() { }
@@ -41,7 +42,7 @@ namespace Entities {
 
     void MovingEntity::moveOnCollision(Math::CoordF intersect, Entities::Entity* other) {
         Math::CoordF otherPos = other->getPosition();
-        
+
         if (intersect.x > intersect.y) { // Colision on x direction
             if (position.x < otherPos.x)
                 position.x += intersect.x;
@@ -59,6 +60,14 @@ namespace Entities {
 
             velocity.y = 0.0f;
         }
+    }
+
+    void MovingEntity::setDamage(unsigned int dmg) {
+        damage = dmg;
+    }
+
+    unsigned int MovingEntity::getDamage() {
+        return damage;
     }
 
 } // namespace Entities

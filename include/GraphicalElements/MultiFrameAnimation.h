@@ -8,24 +8,25 @@ namespace GraphicalElements {
 
     enum Animation_ID {
         walk = 0,
-        idle = 1,
-        attack = 2
+        idle,
+        attack,
+        running,
+        cooldown
     };
 
     class MultiFrameAnimation : public Animation {
     private:
         std::map<Animation_ID, SingleAnimation*> animationMap;
         Animation_ID currentID;
-        float switchTime;
 
     public:
         MultiFrameAnimation();
+
         ~MultiFrameAnimation();
 
-        void addNewAnimation(Animation_ID id, const char* path, unsigned int imageCount);
-        void update(Animation_ID id, bool facingLeft, Math::CoordF position, const float dt);
+        void addNewAnimation(Animation_ID id, const char* path, unsigned int imageCount, const float switchTime = 0.2f);
 
-        void setSwitchTime(const float switchTime);
+        void update(Animation_ID id, bool facingLeft, Math::CoordF position, const float dt);
     };
 
 } // namespace Managers

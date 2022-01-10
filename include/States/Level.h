@@ -9,6 +9,8 @@
 #include "Managers/Collision.h"
 #include "Managers/Graphics.h"
 #include "States/StateMachine.h"
+#include "Entities/Obstacles/Quicksand.h"
+#include "Entities/Obstacles/Cactus.h"
 
 /* ============== REMOVER ============== */
 #include "Entities/Characters/Enemies/Hyena.h"

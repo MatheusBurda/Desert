@@ -10,6 +10,7 @@ namespace Entities {
         Math::CoordF velocity;
         bool active;
         bool facingLeft;
+        unsigned int damage;
 
         GraphicalElements::MultiFrameAnimation sprite;
 
@@ -44,6 +45,10 @@ namespace Entities {
         void setVelocity(Math::CoordF velo);
 
         void moveOnCollision(Math::CoordF intersect, Entities::Entity* other);
+
+        void setDamage(unsigned int dmg);
+
+        virtual unsigned int getDamage();
     };
 
 } // namespace Entities

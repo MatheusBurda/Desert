@@ -11,15 +11,18 @@ namespace Entities {
             int life;
             bool flagIsAttacking;
             const float attackCooldown;
-            float attackTime;
-            float cooldownTime;
+            const float attackingTime;
+            float attackTimer;
+            float cooldownTimer;
+            bool hasAttacked;
 
         public:
             Character(Math::CoordF position = Math::CoordF(0.f, 0.f),
                 Math::CoordF size = Math::CoordF(0.f, 0.f),
                 ID id = empty,
                 int life = 1,
-                const float atckCool = 0.0f);
+                const float attackCooldown = 0.0f,
+                const float attackingTime = 0.0f);
 
             virtual ~Character();
 
@@ -42,6 +45,8 @@ namespace Entities {
             void incrementAttackTime(const float dt);
 
             const bool isAttacking() const;
+
+            unsigned int getDamage();
         };
 
     } // namespace Characters

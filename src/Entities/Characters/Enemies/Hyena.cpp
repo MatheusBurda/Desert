@@ -2,7 +2,7 @@
 
 #define HYENA_SIZE_X 60
 #define HYENA_SIZE_Y 56
-#define HYENA_LIFE 50
+#define HYENA_LIFE 20
 #define HYENA_PATH_IDLE "./assets/Hyena/Hyena_idle.png"
 #define HYENA_PATH_WALK "./assets/Hyena/Hyena_walk.png"
 #define HYENA_PATH_ATTACK "./assets/Hyena/Hyena_attack2.png"
@@ -11,7 +11,9 @@
 #define HYENA_MAX_VELOCITY_X 300.f
 #define HYENA_ACCELERATION 300.f
 #define HYENA_DEACCELERATION 100.f
-#define HYENA_SWITCHTIME 0.1f
+#define HYENA_ATTACK_COOLDOWN 0.3f
+#define HYENA_ATTACK_TIME 0.6f
+#define HYENA_DAMAGE 5
 
 namespace Entities {
 
@@ -20,9 +22,10 @@ namespace Entities {
         namespace Enemies {
 
             Hyena::Hyena(Math::CoordF position, Entities::Characters::Player* pP) :
-            Enemy(position, Math::CoordF(HYENA_SIZE_X, HYENA_SIZE_Y), ID::hyena, HYENA_LIFE, pP, HYENA_SWITCHTIME * 6) {
+            Enemy(position, Math::CoordF(HYENA_SIZE_X, HYENA_SIZE_Y), ID::hyena, HYENA_LIFE, pP, HYENA_ATTACK_COOLDOWN, HYENA_ATTACK_TIME) {
                 initialize();
                 this->acceleration = 0;
+                setDamage(HYENA_DAMAGE);
             }
 
             Hyena::~Hyena() { }
@@ -78,14 +81,13 @@ namespace Entities {
             }
 
             void Hyena::initialize() {
-                sprite.setSwitchTime(HYENA_SWITCHTIME);
-
                 sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, "./assets/Hyena/Hyena_idle.png", 4);
-                sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, "./assets/Hyena/Hyena_walk.png", 6);
-                sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, "./assets/Hyena/Hyena_attack.png", 6);
+                sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, "./assets/Hyena/Hyena_walk.png", 6, 0.1);
+                sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, "./assets/Hyena/Hyena_attack.png", 6, 0.1);
             }
 
             void Hyena::updateSprite(const float dt) {
+
                 if (isAttacking())
                     sprite.update(GraphicalElements::Animation_ID::attack, isFacingLeft(), position, dt);
 

@@ -4,13 +4,15 @@ namespace Entities {
 
     namespace Characters {
 
-        Character::Character(Math::CoordF position, Math::CoordF size, ID id, int life, const float atckCool) :
+        Character::Character(Math::CoordF position, Math::CoordF size, ID id, int life, const float atckCool, const float attackingTime) :
         MovingEntity(position, size, id),
-        attackCooldown(atckCool) {
+        attackCooldown(atckCool),
+        attackingTime(attackingTime) {
             this->life = life;
-            this->cooldownTime = 0;
-            this->attackTime = 0;
+            this->cooldownTimer = 0;
+            this->attackTimer = 0;
             flagIsAttacking = false;
+            hasAttacked = false;
         }
 
         Character::~Character() { }
@@ -26,29 +28,39 @@ namespace Entities {
         }
 
         const bool Character::canAttack() const {
-            return cooldownTime > attackCooldown ? true : false;
+            return cooldownTimer > attackCooldown ? true : false;
         }
 
         void Character::attack() {
-            if (canAttack())
+            if (canAttack()) {
                 flagIsAttacking = true;
+                hasAttacked = false;
+            }
         }
 
         void Character::incrementAttackTime(const float dt) {
             if (flagIsAttacking) {
-                cooldownTime = 0;
-                attackTime += dt;
-                if (attackTime > attackCooldown)
+                cooldownTimer = 0;
+                attackTimer += dt;
+                if (attackTimer > attackingTime)
                     flagIsAttacking = false;
             } //
             else {
-                cooldownTime += dt;
-                attackTime = 0;
+                cooldownTimer += dt;
+                attackTimer = 0;
             }
         }
 
         const bool Character::isAttacking() const {
             return flagIsAttacking;
+        }
+
+        unsigned int Character::getDamage() {
+            if (isAttacking() && !hasAttacked) {
+                hasAttacked = true;
+                return damage;
+            }
+            return 0;
         }
 
     } // namespace Characters

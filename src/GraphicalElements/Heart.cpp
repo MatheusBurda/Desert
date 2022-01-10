@@ -1,8 +1,8 @@
 #include "GraphicalElements/Heart.h"
 
-#define PATH_FULL "./assets/etc/HeartFULL.png"
-#define PATH_HALF "./assets/etc/HeartHALF.png"
-#define PATH_EMPTY "./assets/etc/HeartEMPTY.png"
+#define PATH_FULL "./assets/Hearts/HeartFULL.png"
+#define PATH_HALF "./assets/Hearts/HeartHALF.png"
+#define PATH_EMPTY "./assets/Hearts/HeartEMPTY.png"
 
 namespace GraphicalElements {
 

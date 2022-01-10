@@ -1,24 +1,36 @@
 #include "Entities/Characters/Player.h"
 
+#include "Entities/Obstacles/Cactus.h"
+#include "Entities/Obstacles/Quicksand.h"
+
 #define PLAYER_SIZE_Y 84.0f
 #define PLAYER_SIZE_X 32.0f
 #define PLAYER_LIFE 50
-#define PLAYER_JUMP_HEIGHT 100.0f
-#define PLAYER_ATTACK_COOLDOWN 1.2f
+#define PLAYER_JUMP_HEIGHT 150.0f
+#define PLAYER_ATTACK_COOLDOWN 0.2f
+#define PLAYER_ATTACK_TIME 1.2f
+#define PLAYER_ATTACK_DISTANCE 10.0f
 #define PLAYER_VELOCITY 150.f
+#define PLAYER_DAMAGE 10
+#define PLAYER_PATH_IDLE "./assets/Mummy/Mummy_idle.png"
+#define PLAYER_PATH_WALK "./assets/Mummy/Mummy_walk.png"
+#define PLAYER_PATH_ATTACK "./assets/Mummy/Mummy_attack.png"
 
 namespace Entities {
 
     namespace Characters {
 
         Player::Player(Math::CoordF position) :
-        Character(position, Math::CoordF(PLAYER_SIZE_X, PLAYER_SIZE_Y), ID::player, PLAYER_LIFE, PLAYER_ATTACK_COOLDOWN),
+        Character(position, Math::CoordF(PLAYER_SIZE_X + 2 * PLAYER_ATTACK_DISTANCE, PLAYER_SIZE_Y), ID::player, PLAYER_LIFE, PLAYER_ATTACK_COOLDOWN, PLAYER_ATTACK_TIME),
         pControl(this),
         canJump(false),
+        sprinting(false),
         isWalking(false),
-        points(0) {
+        points(0),
+        swordDistance(PLAYER_ATTACK_DISTANCE) {
             initialize();
-            coins = 85;
+            coins = 0;
+            setDamage(PLAYER_DAMAGE);
         }
 
         Player::~Player() {
@@ -27,7 +39,18 @@ namespace Entities {
         void Player::update(const float dt) {
             Character::incrementAttackTime(dt);
 
-            isWalking ? velocity.x : velocity.x *= 0.9;
+            if (isWalking) {
+                if (sprinting)
+                    velocity.x = PLAYER_VELOCITY * 1.8;
+                else
+                    velocity.x = PLAYER_VELOCITY;
+
+                if (facingLeft)
+                    velocity.x *= -1;
+
+            } //
+            else
+                velocity.x *= 0.95;
             velocity.y += GRAVITY * dt;
 
             position.x += velocity.x * dt;
@@ -37,39 +60,21 @@ namespace Entities {
         }
 
         void Player::initialize() {
-            sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, "./assets/Mummy/Mummy_idle.png", 4);
-            sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, "./assets/Mummy/Mummy_walk.png", 6);
-            sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, "./assets/Mummy/Mummy_attack.png", 6);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, PLAYER_PATH_IDLE, 4);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, PLAYER_PATH_WALK, 6);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::running, PLAYER_PATH_WALK, 6, 0.1f);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, PLAYER_PATH_ATTACK, 6);
         }
 
         void Player::collide(Entity* otherEntity, Math::CoordF intersect) {
-            switch (otherEntity->getId()) {
-            case ID::platform:
-                moveOnCollision(intersect, otherEntity);
-                canJump = true;
-                break;
-            case ID::snake: {
+            if (otherEntity->getId() == ID::snake || otherEntity->getId() == ID::hyena) {
                 Character* pchar = dynamic_cast<Character*>(otherEntity);
                 if (pchar != nullptr) {
-                    if (pchar->isAttacking())
-                        life -= 5;
+                    if (isAttacking())
+                        pchar->receiveDamage(getDamage());
                 }
-                if (isAttacking())
-                    points += 100;
-                break;
-            }
-            case ID::hyena: {
-                life -= 30;
-                Character* pchar = dynamic_cast<Character*>(otherEntity);
-                if (pchar != nullptr) {
-                    if (pchar->isAttacking())
-                        life -= 30;
-                }
-                if (isAttacking())
-                    points += 200;
-                break;
-            }
-            case ID::coin: {
+            } //
+            else if (otherEntity->getId() == ID::coin) {
                 coins++;
                 if (coins >= 100) {
                     coins -= 100;
@@ -77,10 +82,40 @@ namespace Entities {
                     if (life > 50)
                         life = 50;
                 }
+            } //
+            else {
+                Math::CoordF centerDistance;
+                centerDistance.x = otherEntity->getPosition().x - getPosition().x;
+                intersect.x = fabs(centerDistance.x) - ((getSize().x - PLAYER_ATTACK_DISTANCE * 2) / 2.0f + otherEntity->getSize().x / 2.0f);
+
+                if (intersect.x < 0.0f && intersect.y < 0.0f) { // Condition to collide...
+
+                    moveOnCollision(intersect, otherEntity);
+                    switch (otherEntity->getId()) {
+                    case ID::platform: {
+                        canJump = true;
+                        break;
+                    }
+
+                    case ID::cactus: {
+                        Entities::Obstacles::Cactus* pCactus = dynamic_cast<Entities::Obstacles::Cactus*>(otherEntity);
+                        if (pCactus)
+                            life -= pCactus->getDamage();
+                        break;
+                    }
+                    case ID::quicksand: {
+                        Entities::Obstacles::Quicksand* pQck = dynamic_cast<Entities::Obstacles::Quicksand*>(otherEntity);
+                        if (pQck)
+                            velocity *= pQck->getSlowness();
+                        break;
+                    }
+                    default:
+                        break;
+                    }
+                }
             }
-            default:
-                break;
-            }
+            if (life < 0)
+                active = false;
         }
 
         void Player::updateSprite(const float dt) {
@@ -103,11 +138,6 @@ namespace Entities {
 
         void Player::walk(bool toLeft) {
             isWalking = true;
-            if (toLeft)
-                velocity.x = -PLAYER_VELOCITY;
-            else
-                velocity.x = PLAYER_VELOCITY;
-
             setFacingLeft(toLeft);
         }
 
@@ -127,6 +157,9 @@ namespace Entities {
             return coins;
         }
 
-    }
+        void Player::setIsSprinting(const bool option) {
+            sprinting = option;
+        }
 
+    }
 }

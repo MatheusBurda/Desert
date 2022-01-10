@@ -14,8 +14,8 @@ namespace Entities {
         snake,
         hyena,
         cactus,
-        coin
-
+        coin,
+        quicksand
     };
 
     class Entity : public Ent {

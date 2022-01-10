@@ -12,8 +12,10 @@ namespace Entities {
             Control::PlayerControl pControl;
             bool isWalking;
             bool canJump;
+            bool sprinting;
             unsigned int points;
             unsigned int coins;
+            const float swordDistance;
 
         public:
             Player(Math::CoordF position = Math::CoordF(0.f, 0.f));
@@ -39,6 +41,8 @@ namespace Entities {
             void incrementPoints(unsigned int points);
 
             unsigned int getCoins() const;
+
+            void setIsSprinting(const bool option);
 
         };
 

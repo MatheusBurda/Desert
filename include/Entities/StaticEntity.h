@@ -4,7 +4,7 @@
 #include "GraphicalElements/SingleFrameAnimation.h"
 
 namespace Entities {
-    
+
     class StaticEntity : public Entity {
     protected:
         GraphicalElements::SingleFrameAnimation sprite;
@@ -16,12 +16,11 @@ namespace Entities {
 
         void render();
 
-        virtual void update(const float dt) = 0;
+        virtual void update(const float dt) { }
 
         virtual void initialize() = 0;
 
-        virtual void collide(Entity* otherEntity, Math::CoordF intersect) = 0;
-
+        virtual void collide(Entity* otherEntity, Math::CoordF intersect) { }
     };
 
 } // namespace Entities

@@ -2,14 +2,15 @@
 
 #define SNAKE_SIZE_X 60
 #define SNAKE_SIZE_Y 26
-#define SNAKE_LIFE 50
-#define SNAKE_PATH_IDLE "./assets/Snake/Snake_idle_2.png"
+#define SNAKE_LIFE 10
+#define SNAKE_PATH_IDLE "./assets/Snake/Snake_idle.png"
 #define SNAKE_PATH_WALK "./assets/Snake/Snake_walk.png"
 #define SNAKE_PATH_ATTACK "./assets/Snake/Snake_attack.png"
 #define SNAKE_ATTACK_DISTANCE 200.0f
 #define SNAKE_VELOCITY_X 200.f
 #define SNAKE_JUMP_HEIGHT 70.f
 #define SNAKE_SWITCHTIME 0.2
+#define SNAKE_DAMAGE 10
 
 namespace Entities {
 
@@ -18,8 +19,9 @@ namespace Entities {
         namespace Enemies {
 
             Snake::Snake(Math::CoordF position, Entities::Characters::Player* pP) :
-            Enemy(position, Math::CoordF(SNAKE_SIZE_X, SNAKE_SIZE_Y), ID::snake, SNAKE_LIFE, pP, 4 * SNAKE_SWITCHTIME) {
+            Enemy(position, Math::CoordF(SNAKE_SIZE_X, SNAKE_SIZE_Y), ID::snake, SNAKE_LIFE, pP, 4 * SNAKE_SWITCHTIME, 4 * SNAKE_SWITCHTIME) {
                 initialize();
+                setDamage(SNAKE_DAMAGE);
             }
 
             Snake::~Snake() { }
@@ -56,8 +58,6 @@ namespace Entities {
             }
 
             void Snake::initialize() {
-                sprite.setSwitchTime(SNAKE_SWITCHTIME);
-
                 sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, SNAKE_PATH_IDLE, 4);
                 sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, SNAKE_PATH_WALK, 4);
                 sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, SNAKE_PATH_ATTACK, 4);
