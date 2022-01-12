@@ -8,6 +8,7 @@
 #define PLAYER_LIFE 50
 #define PLAYER_JUMP_HEIGHT 150.0f
 #define PLAYER_ATTACK_COOLDOWN 0.2f
+#define PLAYER_DAMAGE_COOLDOWN 1
 #define PLAYER_ATTACK_TIME 1.2f
 #define PLAYER_ATTACK_DISTANCE 10.0f
 #define PLAYER_VELOCITY 150.f
@@ -31,6 +32,7 @@ namespace Entities {
             initialize();
             coins = 0;
             setDamage(PLAYER_DAMAGE);
+            damageCooldown = 0;
         }
 
         Player::~Player() {
@@ -47,22 +49,24 @@ namespace Entities {
 
                 if (facingLeft)
                     velocity.x *= -1;
-
+                velocity.x *= slowness;
             } //
             else
-                velocity.x *= 0.95;
+                velocity.x *= 0.5;
             velocity.y += GRAVITY * dt;
 
             position.x += velocity.x * dt;
             position.y += velocity.y * dt;
 
             updateSprite(dt);
+
+            damageCooldown += dt;
         }
 
         void Player::initialize() {
             sprite.addNewAnimation(GraphicalElements::Animation_ID::idle, PLAYER_PATH_IDLE, 4);
             sprite.addNewAnimation(GraphicalElements::Animation_ID::walk, PLAYER_PATH_WALK, 6);
-            sprite.addNewAnimation(GraphicalElements::Animation_ID::running, PLAYER_PATH_WALK, 6, 0.1f);
+            sprite.addNewAnimation(GraphicalElements::Animation_ID::run, PLAYER_PATH_WALK, 6, 0.1f);
             sprite.addNewAnimation(GraphicalElements::Animation_ID::attack, PLAYER_PATH_ATTACK, 6);
         }
 
@@ -94,19 +98,21 @@ namespace Entities {
                     switch (otherEntity->getId()) {
                     case ID::platform: {
                         canJump = true;
+                        slowness = 1;
                         break;
                     }
 
                     case ID::cactus: {
                         Entities::Obstacles::Cactus* pCactus = dynamic_cast<Entities::Obstacles::Cactus*>(otherEntity);
                         if (pCactus)
-                            life -= pCactus->getDamage();
+                            receiveDamage(pCactus->getDamage());
                         break;
                     }
                     case ID::quicksand: {
+                        canJump = true;
                         Entities::Obstacles::Quicksand* pQck = dynamic_cast<Entities::Obstacles::Quicksand*>(otherEntity);
                         if (pQck)
-                            velocity *= pQck->getSlowness();
+                            slowness = pQck->getSlowness();
                         break;
                     }
                     default:
@@ -122,8 +128,12 @@ namespace Entities {
             if (isAttacking())
                 sprite.update(GraphicalElements::Animation_ID::attack, isFacingLeft(), position, dt);
 
-            else if (isWalking)
-                sprite.update(GraphicalElements::Animation_ID::walk, isFacingLeft(), position, dt);
+            else if (isWalking) {
+                if (sprinting && slowness == 1)
+                    sprite.update(GraphicalElements::Animation_ID::run, isFacingLeft(), position, dt);
+                else
+                    sprite.update(GraphicalElements::Animation_ID::walk, isFacingLeft(), position, dt);
+            }
 
             else
                 sprite.update(GraphicalElements::Animation_ID::idle, isFacingLeft(), position, dt);
@@ -131,7 +141,7 @@ namespace Entities {
 
         void Player::jump() {
             if (canJump) {
-                velocity.y = -sqrtf(2.0f * GRAVITY * PLAYER_JUMP_HEIGHT);
+                velocity.y = -sqrtf(2.0f * GRAVITY * PLAYER_JUMP_HEIGHT) * slowness;
                 canJump = false;
             }
         }
@@ -161,5 +171,17 @@ namespace Entities {
             sprinting = option;
         }
 
+        const float Player::getSwordDistance() const {
+            return swordDistance;
+        }
+
+        void Player::receiveDamage(const int damage) {
+            if (damageCooldown > PLAYER_DAMAGE_COOLDOWN) {
+                life -= damage;
+                if (life <= 0)
+                    active = false;
+                damageCooldown = 0;
+            }
+        }
     }
 }

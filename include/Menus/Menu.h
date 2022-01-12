@@ -2,6 +2,7 @@
 
 #include "Control/MenuControl.h"
 #include "GraphicalElements/Button.h"
+#include "GraphicalElements/SingleFrameAnimation.h"
 #include <vector>
 
 namespace Menus {
@@ -14,8 +15,8 @@ namespace Menus {
         int min;
         int max;
         Control::MenuControl control;
-        /* Background back; */
         bool active;
+        GraphicalElements::SingleFrameAnimation back;
 
     public:
         Menu();

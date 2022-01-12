@@ -1,6 +1,6 @@
 #include "Entities/Characters/Enemies/Hyena.h"
 
-#define HYENA_SIZE_X 60
+#define HYENA_SIZE_X 80
 #define HYENA_SIZE_Y 56
 #define HYENA_LIFE 20
 #define HYENA_PATH_IDLE "./assets/Hyena/Hyena_idle.png"
@@ -14,6 +14,7 @@
 #define HYENA_ATTACK_COOLDOWN 0.3f
 #define HYENA_ATTACK_TIME 0.6f
 #define HYENA_DAMAGE 5
+#define HYENA_POINTS 300
 
 namespace Entities {
 
@@ -22,7 +23,7 @@ namespace Entities {
         namespace Enemies {
 
             Hyena::Hyena(Math::CoordF position, Entities::Characters::Player* pP) :
-            Enemy(position, Math::CoordF(HYENA_SIZE_X, HYENA_SIZE_Y), ID::hyena, HYENA_LIFE, pP, HYENA_ATTACK_COOLDOWN, HYENA_ATTACK_TIME) {
+            Enemy(position, Math::CoordF(HYENA_SIZE_X, HYENA_SIZE_Y), ID::hyena, HYENA_LIFE, pP, HYENA_ATTACK_COOLDOWN, HYENA_ATTACK_TIME, HYENA_POINTS) {
                 initialize();
                 this->acceleration = 0;
                 setDamage(HYENA_DAMAGE);

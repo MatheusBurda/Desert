@@ -44,6 +44,8 @@ namespace GraphicalElements {
         void render();
 
         std::string getInfo() const;
+
+        Math::CoordF getPosition() const;
     };
 
 } // namespace GraphicalElements

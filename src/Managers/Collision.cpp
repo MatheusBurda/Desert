@@ -1,13 +1,15 @@
 #include "Managers/Collision.h"
 
 #include "Entities/MovingEntity.h"
+#include "States/Level.h"
 #include "math.h"
 
 namespace Managers {
 
-    Collision::Collision(List::EntityList* movingEntities, List::EntityList* staticEntities) :
+    Collision::Collision(List::EntityList* movingEntities, List::EntityList* staticEntities, States::Level* plvl) :
     movingEntities(movingEntities),
-    staticEntities(staticEntities) { }
+    staticEntities(staticEntities),
+    plvl(plvl) { }
 
     Collision::~Collision() {
         movingEntities = nullptr;
@@ -68,6 +70,8 @@ namespace Managers {
             pAux = static_cast<Entities::MovingEntity*>((*movingEntities)[i]);
             if (pAux != nullptr) {
                 if (!pAux->isActive()) {
+                    if (pAux->getId() != Entities::ID::coin)
+                        plvl->coinBomb(pAux->getPosition());
                     movingEntities->deleteEntity(pAux);
                     i--;
                     if (i < 0)

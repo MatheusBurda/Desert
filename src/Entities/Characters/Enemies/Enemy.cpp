@@ -35,6 +35,16 @@ namespace Entities {
                 pPlayer = pP;
             }
 
+            void Enemy::receiveDamage(const int damage) {
+                life -= damage;
+                if (life <= 0) {
+                    active = false;
+                    if (pPlayer != nullptr) {
+                        pPlayer->incrementPoints(points);
+                    }
+                }
+            }
+
             void Enemy::collide(Entity* otherEntity, Math::CoordF intersect) {
                 switch (otherEntity->getId()) {
                 case ID::platform: {
@@ -42,11 +52,18 @@ namespace Entities {
                     break;
                 }
                 case ID::player: {
-                    Character* pchar = dynamic_cast<Character*>(otherEntity);
-                    if (pchar != nullptr) {
-                        if (isAttacking() && !pchar->isAttacking())
-                            pchar->receiveDamage(getDamage());
+                    
+                    if (pPlayer != nullptr) {
+                        Math::CoordF centerDistance;
+                        centerDistance.x = otherEntity->getPosition().x - getPosition().x;
+                        intersect.x = fabs(centerDistance.x) - ((getSize().x - pPlayer->getSwordDistance() * 2) / 2.0f + otherEntity->getSize().x / 2.0f);
+
+                        if (intersect.x < 0.0f && intersect.y < 0.0f) { // Condition to collide...
+                            if (isAttacking())
+                                pPlayer->receiveDamage(getDamage());
+                        }
                     }
+
                     break;
                 }
                 case ID::cactus: {
@@ -61,13 +78,6 @@ namespace Entities {
                 }
                 default:
                     break;
-                }
-
-                if (life < 0) {
-                    active = false;
-                    if (pPlayer != nullptr) {
-                        pPlayer->incrementPoints(points);
-                    }
                 }
             }
 

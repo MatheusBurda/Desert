@@ -49,7 +49,7 @@ namespace GraphicalElements {
             text.setOrigin(getSize().x / 2, getSize().y);
             break;
         case TextAlignment::right:
-            text.setOrigin(getSize().x , 0);
+            text.setOrigin(getSize().x, 0);
             break;
         default:
             text.setOrigin(getSize().x / 2, getSize().y);
@@ -59,7 +59,7 @@ namespace GraphicalElements {
 
     Math::CoordF Text::getSize() const {
         sf::FloatRect textRect = text.getLocalBounds();
-        return Math::CoordF( textRect.width, textRect.height);
+        return Math::CoordF(textRect.width, textRect.height);
     }
 
     void Text::render() {
@@ -68,6 +68,10 @@ namespace GraphicalElements {
 
     std::string Text::getInfo() const {
         return info;
+    }
+
+    Math::CoordF Text::getPosition() const {
+        return Math::CoordF(text.getPosition().x, text.getPosition().y);
     }
 
 } // namespace GraphicalElements

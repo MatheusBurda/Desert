@@ -1,7 +1,5 @@
 #include "Entities/Obstacles/Cactus.h"
 
-#define CACTUS_WIDTH 32.f
-#define CACTUS_HEIGHT 70.f 
 #define CACTUS_DAMAGE 5
 #define CACTUS_PATH "./assets/Obstacles/Cactus.png"
 

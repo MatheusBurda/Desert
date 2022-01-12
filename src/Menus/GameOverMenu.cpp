@@ -61,7 +61,7 @@ namespace Menus {
     /* Menu operation to render all it's objects. */
     void GameOverMenu::render() {
         updateView();
-        // back.render();
+        back.render();
         for (it = vectorOfButtons.begin(); it != vectorOfButtons.end(); ++it)
             (*it)->render();
 
@@ -125,7 +125,8 @@ namespace Menus {
         }
 
         /* ================================= Writing File ================================= */
-        pointsAndNamesMap.insert(std::pair<int, std::string>(playerPoints, input.getString()));
+        if (playerPoints != 0 && input.getString().length() > 1)
+            pointsAndNamesMap.insert(std::pair<int, std::string>(playerPoints, input.getString()));
 
         std::ofstream writeFile;
 

@@ -12,6 +12,7 @@ namespace Menus {
     class MainMenuState : public Menu, public States::State {
     private:
         States::Game* pGame;
+        GraphicalElements::Text title;
 
     public:
         MainMenuState(States::Game* pG = nullptr);

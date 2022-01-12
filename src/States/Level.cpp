@@ -1,16 +1,19 @@
 #include "States/Level.h"
 
+#include "Entities/Obstacles/Platform.h"
+
 namespace States {
 
     Level::Level(StateMachine* pSM) :
     State(pSM, stateID::playing),
     staticEntitiesList(),
     movingEntitiesList(),
-    collisionManager(&movingEntitiesList, &staticEntitiesList),
+    collisionManager(&movingEntitiesList, &staticEntitiesList, this),
     hud(),
-    pGraphicM(Managers::Graphics::getInstance()) {
+    pGraphicM(Managers::Graphics::getInstance()),
+    worldGen(&movingEntitiesList, &staticEntitiesList) {
         playerPoints = 0;
-        // background.initialize("./assets/Background/Background.png", Math::CoordF(1280 / 2, 720 / 2), Math::CoordF(1280, 720));
+        background.initialize("./assets/Background/Background.png", Math::CoordF(1280 / 2, 720 / 2), Math::CoordF(1280, 720));
         levelEnded = true;
     }
     Level::~Level() {
@@ -23,8 +26,12 @@ namespace States {
 
         collisionManager.collide();
 
-        pGraphicM->centerView(player->getPosition());
+        pGraphicM->centerView(Math::CoordF(player->getPosition().x, pGraphicM->getWindowSize().y / 2 - PLATFORM_HEIGHT / 2));
+        background.update(Math::CoordF(player->getPosition().x, pGraphicM->getWindowSize().y / 2 - PLATFORM_HEIGHT / 2));
         hud.update(dt);
+
+        if (player->getPosition().x >= nextPositionToRender.x)
+            worldGen.generate(&nextPositionToRender, player);
 
         if (player->getLife() <= 0) {
             endLevel();
@@ -34,7 +41,7 @@ namespace States {
 
     void Level::render() {
 
-        // background.render();
+        background.render();
 
         for (unsigned int i = 0; i < staticEntitiesList.getSize(); i++) {
             staticEntitiesList[i]->render();
@@ -50,48 +57,15 @@ namespace States {
     void Level::resetState() {
         if (levelEnded) {
 
-            /* Cria plataformas */
-            Entities::Entity* tmp;
+            player = new Entities::Characters::Player(Math::CoordF(200.f, 300.f));
+            movingEntitiesList.addEntity(player);
 
-            for (int i = 0; i < 20; i++) {
-                tmp = new Entities::Obstacles::Platform(Math::CoordF(96.f * i, 500.f));
-                staticEntitiesList.addEntity(tmp);
-            }
+            worldGen.resetToOrigin();
 
-            tmp = new Entities::Obstacles::Cactus(Math::CoordF(450.f, 450.f));
-            staticEntitiesList.addEntity(tmp);
+            worldGen.generate(&nextPositionToRender, player);
 
-            Entities::Characters::Player* p1 = new Entities::Characters::Player(Math::CoordF(100.f, 300.f));
-            movingEntitiesList.addEntity(p1);
+            hud.setPlayer(player);
 
-            player = p1;
-
-            /* Coins de teste */
-            Entities::Loot::Coin* coin;
-
-            for (int i = 0; i < 20; i++) {
-                coin = new Entities::Loot::Coin(Math::CoordF(300.f + 55 * i, 300.f), Math::CoordF(0.f, 0.f));
-                movingEntitiesList.addEntity(coin);
-            }
-
-            /* Cria inimigos */
-            Entities::Characters::Enemies::Snake* snake = new Entities::Characters::Enemies::Snake(Math::CoordF(776.f, 300.f), player);
-            snake->setVelocity(Math::CoordF(0.0f, 0.0f));
-            movingEntitiesList.addEntity(snake);
-
-            snake = new Entities::Characters::Enemies::Snake(Math::CoordF(650.f, 300.f), player);
-            snake->setVelocity(Math::CoordF(0.0f, 0.0f));
-            movingEntitiesList.addEntity(snake);
-
-            snake = new Entities::Characters::Enemies::Snake(Math::CoordF(550.f, 300.f), player);
-            snake->setVelocity(Math::CoordF(0.0f, 0.0f));
-            movingEntitiesList.addEntity(snake);
-
-            Entities::Characters::Enemies::Hyena* Hyena = new Entities::Characters::Enemies::Hyena(Math::CoordF(800.f, 300.f), player);
-            Hyena->setVelocity(Math::CoordF(-300.0f, 0.0f));
-            movingEntitiesList.addEntity(Hyena);
-
-            hud.setPlayer(p1);
             levelEnded = false;
         }
     }
@@ -105,6 +79,10 @@ namespace States {
 
     int Level::getPlayerPoints() const {
         return playerPoints;
+    }
+
+    void Level::coinBomb(Math::CoordF position) {
+        worldGen.explodeCoins(position);
     }
 
 } // namespace States

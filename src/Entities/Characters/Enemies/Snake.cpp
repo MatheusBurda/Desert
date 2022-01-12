@@ -11,6 +11,7 @@
 #define SNAKE_JUMP_HEIGHT 70.f
 #define SNAKE_SWITCHTIME 0.2
 #define SNAKE_DAMAGE 10
+#define SNAKE_POINTS 200
 
 namespace Entities {
 
@@ -19,7 +20,7 @@ namespace Entities {
         namespace Enemies {
 
             Snake::Snake(Math::CoordF position, Entities::Characters::Player* pP) :
-            Enemy(position, Math::CoordF(SNAKE_SIZE_X, SNAKE_SIZE_Y), ID::snake, SNAKE_LIFE, pP, 4 * SNAKE_SWITCHTIME, 4 * SNAKE_SWITCHTIME) {
+            Enemy(position, Math::CoordF(SNAKE_SIZE_X, SNAKE_SIZE_Y), ID::snake, SNAKE_LIFE, pP, 4 * SNAKE_SWITCHTIME, 4 * SNAKE_SWITCHTIME, SNAKE_POINTS) {
                 initialize();
                 setDamage(SNAKE_DAMAGE);
             }

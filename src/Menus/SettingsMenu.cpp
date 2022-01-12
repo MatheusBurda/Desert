@@ -40,7 +40,7 @@ namespace Menus {
     /* Menu operation to render all it's objects. */
     void SettingsMenu::render() {
         updateView();
-        // back.render();
+        back.render();
         for (it = vectorOfButtons.begin(); it != vectorOfButtons.end(); ++it)
             (*it)->render();
     }

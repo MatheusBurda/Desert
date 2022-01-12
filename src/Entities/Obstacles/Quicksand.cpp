@@ -1,8 +1,8 @@
 #include "Entities/Obstacles/Quicksand.h"
 
-#define QUICKSAND_WIDTH 96.f
-#define QUICKSAND_HEIGHT 32.f
-#define QUICKSAND_SLOWNESS_MAX 8
+#define QUICKSAND_WIDTH 192.f
+#define QUICKSAND_HEIGHT 192.f
+#define QUICKSAND_SLOWNESS_MAX 3
 #define QUICKSAND_PATH "./assets/Obstacles/Quicksand.png"
 
 #include <stdlib.h>
@@ -25,7 +25,7 @@ namespace Entities {
         }
 
         const float Quicksand::getSlowness() const {
-            return (1.0 / (1 + rand() % QUICKSAND_SLOWNESS_MAX));
+            return (1.0 / (3 + rand() % QUICKSAND_SLOWNESS_MAX));
         }
 
     } // namespace Obstacles

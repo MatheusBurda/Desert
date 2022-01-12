@@ -17,6 +17,7 @@ namespace Entities {
         }
 
         void Coin::update(const float dt) {
+            velocity.x *= 0.97;
             velocity.y += GRAVITY * dt;
 
             position.x += velocity.x * dt;
@@ -32,6 +33,12 @@ namespace Entities {
         void Coin::collide(Entity* otherEntity, Math::CoordF intersect) {
             switch (otherEntity->getId()) {
             case ID::platform: {
+                float veloY = -0.5 * velocity.y;
+                moveOnCollision(intersect, otherEntity);
+                velocity.y = veloY;
+                break;
+            }
+            case ID::quicksand: {
                 float veloY = -0.5 * velocity.y;
                 moveOnCollision(intersect, otherEntity);
                 velocity.y = veloY;

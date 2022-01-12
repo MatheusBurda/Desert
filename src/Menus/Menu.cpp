@@ -2,6 +2,8 @@
 
 #include "Managers/Graphics.h"
 
+#define BACKGROUND_MENU "./assets/Background/BrickBackground.png"
+
 namespace Menus {
 
     Menu::Menu() :
@@ -9,10 +11,9 @@ namespace Menus {
     min(0),
     max(2),
     control(this),
-    /*back(sf::Vector2f(0, 0), backPath), */
     active(false) {
-        /*  GraphicManager* GM = GraphicManager::getInstance();
-         back.changePos(sf::Vector2f(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2)); */
+        Managers::Graphics* GM = Managers::Graphics::getInstance();
+        back.initialize(BACKGROUND_MENU, Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2), Math::CoordF(GM->getWindowSize().x, GM->getWindowSize().y));
     }
 
     Menu::~Menu() {
@@ -26,7 +27,7 @@ namespace Menus {
     }
 
     void Menu::updateView() {
-        Managers::Graphics::getInstance()->centerView(Math::CoordF(Managers::Graphics::getInstance()->getWindowSize().x/2, Managers::Graphics::getInstance()->getWindowSize().y/2));
+        Managers::Graphics::getInstance()->centerView(Math::CoordF(Managers::Graphics::getInstance()->getWindowSize().x / 2, Managers::Graphics::getInstance()->getWindowSize().y / 2));
     }
 
     /* Make the menu selection go Down */

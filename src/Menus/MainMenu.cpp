@@ -1,7 +1,5 @@
 #include "Menus/MainMenu.h"
 
-#define BACKGROUND_MAIN_MENU "./assets/Backgrounds/MainMenuBackground.png"
-
 #include "States/Game.h"
 
 namespace Menus {
@@ -9,7 +7,8 @@ namespace Menus {
     MainMenuState::MainMenuState(States::Game* pG) :
     Menu(),
     State(static_cast<States::StateMachine*>(pG), States::stateID::mainMenu),
-    pGame(pG) {
+    pGame(pG),
+    title() {
         Managers::Graphics* GM = Managers::Graphics::getInstance();
         GraphicalElements::Button* bt = NULL;
 
@@ -26,6 +25,13 @@ namespace Menus {
         bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 300), "EXIT GAME");
         vectorOfButtons.push_back(bt);
 
+        title.setTextInfo("DESERT");
+        title.setFontSize(140);
+        title.setTextColor(77.6, 68.2, 44.3);
+        title.setTextAlignment(GraphicalElements::TextAlignment::center);
+
+        title.setPosition(Math::CoordF(GM->getWindowSize().x / 2.0f, 0.0f - title.getSize().y / 2));
+
         max = 3;
     }
 
@@ -34,14 +40,17 @@ namespace Menus {
 
     void MainMenuState::update(float dt) {
         active = true;
+        if (title.getPosition().y < 200)
+            title.setPosition(Math::CoordF(title.getPosition().x, title.getPosition().y + 1));
     }
 
     /* Menu operation to render all it's objects. */
     void MainMenuState::render() {
         updateView();
-        // back.render();
+        back.render();
         for (it = vectorOfButtons.begin(); it != vectorOfButtons.end(); ++it)
             (*it)->render();
+        title.render();
     }
 
     void MainMenuState::exec() {
@@ -70,6 +79,7 @@ namespace Menus {
         vectorOfButtons[selected]->select(false);
         selected = 0;
         vectorOfButtons[selected]->select(true);
+        title.setPosition(Math::CoordF(title.getPosition().x, 0.0f - title.getSize().y / 2));
     }
 
 }

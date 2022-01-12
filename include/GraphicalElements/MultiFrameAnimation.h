@@ -10,7 +10,7 @@ namespace GraphicalElements {
         walk = 0,
         idle,
         attack,
-        running,
+        run,
         cooldown
     };
 

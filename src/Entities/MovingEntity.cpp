@@ -48,7 +48,7 @@ namespace Entities {
                 position.x += intersect.x;
             else
                 position.x -= intersect.x;
-            velocity.x *= 0.0f;
+            velocity.x = 0.0f;
         }
 
         else { // Colision on y direction

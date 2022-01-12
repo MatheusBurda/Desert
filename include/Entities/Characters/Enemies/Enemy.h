@@ -34,6 +34,8 @@ namespace Entities {
 
                 Math::CoordF getPlayerPosition();
 
+                void receiveDamage(const int damage);
+
                 virtual void update(const float dt) = 0;
 
                 virtual void initialize() = 0;

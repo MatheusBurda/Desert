@@ -31,8 +31,8 @@ namespace List {
 
         tmp = list.pop(pEntity);
 
-        if (tmp)
-            delete (tmp);
+        if (pEntity)
+            delete (pEntity);
     }
 
     void EntityList::deleteEntity(unsigned int index) {

@@ -32,7 +32,7 @@ namespace Menus {
     /* Menu operation to render all it's objects. */
     void PauseMenuState::render() {
         updateView();
-        // back.render();
+        back.render();
         for (it = vectorOfButtons.begin(); it != vectorOfButtons.end(); ++it)
             (*it)->render();
     }

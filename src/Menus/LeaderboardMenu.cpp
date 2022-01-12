@@ -31,7 +31,7 @@ namespace Menus {
     /* Menu operation to render all it's objects. */
     void LeaderboardMenu::render() {
         updateView();
-        // back.render();
+        back.render();
         for (it = vectorOfButtons.begin(); it != vectorOfButtons.end(); ++it)
             (*it)->render();
 
@@ -113,6 +113,7 @@ namespace Menus {
             txt = new GraphicalElements::Text(Math::CoordF(Managers::Graphics::getInstance()->getWindowSize().x / 2.0f, 100 + 40 * i), textString + pointsString, LEADERBOARD_FONT_PATH);
             txt->setFontSize(48);
             txt->setTextAlignment(GraphicalElements::TextAlignment::center);
+            txt->setTextColor(77.6, 68.2, 44.3);
             allPoints.push_back(txt);
         }
 

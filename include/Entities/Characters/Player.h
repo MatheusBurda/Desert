@@ -16,6 +16,8 @@ namespace Entities {
             unsigned int points;
             unsigned int coins;
             const float swordDistance;
+            float slowness;
+            float damageCooldown;
 
         public:
             Player(Math::CoordF position = Math::CoordF(0.f, 0.f));
@@ -43,6 +45,10 @@ namespace Entities {
             unsigned int getCoins() const;
 
             void setIsSprinting(const bool option);
+
+            const float getSwordDistance() const;
+
+            void receiveDamage(const int damage);
 
         };
 

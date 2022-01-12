@@ -28,7 +28,7 @@ namespace Entities {
 
             const int getLife() const;
 
-            void receiveDamage(const int damage);
+            virtual void receiveDamage(const int damage);
 
             virtual void update(const float dt) = 0;
 

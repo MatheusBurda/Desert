@@ -2,6 +2,9 @@
 
 #include "Entities/StaticEntity.h"
 
+#define CACTUS_WIDTH 32.f
+#define CACTUS_HEIGHT 70.f 
+
 namespace Entities {
 
     namespace Obstacles {

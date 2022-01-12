@@ -108,7 +108,7 @@ namespace List {
     template <class TL>
     TL* List<TL>::operator[](int index) {
         if (index >= size || index < 0) {
-            std::cout << "ERROR: Segmentation fault on template list. Exceeded boundaries." << std::endl;
+            std::cout << "ERROR: Segmentation fault on template list. Exceeded boundaries. Index " << index << " out of " << size << " elements." << std::endl;
             exit(1);
         }
 
@@ -172,7 +172,7 @@ namespace List {
     template <class TL>
     TL* List<TL>::pop(int index) {
         if (index >= size || index < 0) {
-            std::cout << "ERROR: Segmentation fault on template list. Exceeded boundaries." << std::endl;
+            std::cout << "ERROR: Segmentation fault on List<TL>::pop(int index). Exceeded boundaries. Index " << index << " out of " << size << " elements." << std::endl;
             exit(1);
         }
 
