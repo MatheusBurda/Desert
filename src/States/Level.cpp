@@ -33,7 +33,7 @@ namespace States {
         if (player->getPosition().x >= nextPositionToRender.x)
             worldGen.generate(&nextPositionToRender, player);
 
-        if (player->getLife() <= 0) {
+        if (!player->isActive()) {
             endLevel();
             changeState(States::stateID::gameOver);
         }
@@ -68,6 +68,7 @@ namespace States {
 
             levelEnded = false;
         }
+        worldGen.setRenderDistance();
     }
 
     void Level::endLevel() {

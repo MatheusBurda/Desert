@@ -1,9 +1,10 @@
 #include "Menus/SettingsMenu.h"
 
-#define BACKGROUND_MAIN_MENU "./assets/Backgrounds/MainMenuBackground.png"
+#define SETTINGS_FILE "./saves/Settings.txt"
 
 #include "Managers/Graphics.h"
 #include "States/Game.h"
+#include <fstream>
 
 namespace Menus {
 
@@ -14,24 +15,22 @@ namespace Menus {
         Managers::Graphics* GM = Managers::Graphics::getInstance();
         GraphicalElements::Button* bt = NULL;
 
-        bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2), "800x600");
+        bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2), "Render distance 30");
         bt->select(true);
         vectorOfButtons.push_back(bt);
 
-        bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 100), "1280x720");
-        vectorOfButtons.push_back(bt);
-
-        bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 200), "Sound on/off");
+        bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 100), "Render distance 50");
         vectorOfButtons.push_back(bt);
 
         bt = new GraphicalElements::Button(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 + 300), "return");
         vectorOfButtons.push_back(bt);
 
-        max = 3;
+        max = 2;
+
+        renderDistance = 30;
     }
 
-    SettingsMenu::~SettingsMenu() {
-    }
+    SettingsMenu::~SettingsMenu() { }
 
     void SettingsMenu::update(float dt) {
         active = true;
@@ -50,27 +49,41 @@ namespace Menus {
             active = false;
             switch (selected) {
             case 0:
-                Managers::Graphics::getInstance()->setWindowSize(Math::CoordU(800, 600));
+                renderDistance = 30;
                 break;
             case 1:
-                Managers::Graphics::getInstance()->setWindowSize(Math::CoordU(1280, 720));
+                renderDistance = 50;
                 break;
             case 2:
-                /* Sound ON/OFF */
-                break;
-            case 3:
                 changeState(pSM->getLastStateID());
                 break;
             default:
                 break;
             }
+            saveSettings();
+            resetState();
         }
     }
 
     void SettingsMenu::resetState() {
         vectorOfButtons[selected]->select(false);
-        selected = 0;
+        selected = 2;
         vectorOfButtons[selected]->select(true);
+    }
+
+    void SettingsMenu::saveSettings() {
+        std::ofstream writeFile;
+
+        writeFile.open(SETTINGS_FILE, std::ios::out | std::ios::trunc);
+
+        if (!writeFile) {
+            std::cout << "ERROR writing to file on GameOverMenu" << std::endl;
+            exit(1);
+        }
+
+        writeFile << renderDistance;
+
+        writeFile.close();
     }
 
 }

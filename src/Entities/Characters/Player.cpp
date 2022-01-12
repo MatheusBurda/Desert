@@ -61,6 +61,9 @@ namespace Entities {
             updateSprite(dt);
 
             damageCooldown += dt;
+
+            if (position.y > 1000)
+                active = false;
         }
 
         void Player::initialize() {

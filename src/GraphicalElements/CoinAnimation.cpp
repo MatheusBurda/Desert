@@ -1,6 +1,6 @@
 #include "GraphicalElements/CoinAnimation.h"
 
-#define COIN_PATH "./assets/etc/Coin.png"
+#define COIN_PATH "./assets/Loot/Coin.png"
 #define COIN_IMAGE_COUNT 8
 
 namespace GraphicalElements {

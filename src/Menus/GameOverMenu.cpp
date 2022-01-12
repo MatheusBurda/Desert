@@ -35,18 +35,23 @@ namespace Menus {
         title.setPosition(Math::CoordF(GM->getWindowSize().x / 2.0f, GM->getWindowSize().y / 2 - 200));
         title.setFontSize(100);
         title.setTextAlignment(GraphicalElements::TextAlignment::center);
+        title.setTextColor(77.6, 68.2, 44.3);
 
         points.setPosition(Math::CoordF(GM->getWindowSize().x / 2.0f - 100, GM->getWindowSize().y / 2));
         points.setFontSize(40);
+        points.setTextColor(77.6, 68.2, 44.3);
         points.setTextAlignment(GraphicalElements::TextAlignment::center);
 
         nameLabel.setPosition(Math::CoordF(GM->getWindowSize().x / 2.0f - 200, GM->getWindowSize().y / 2 + 100));
         nameLabel.setFontSize(40);
+        nameLabel.setTextColor(77.6, 68.2, 44.3);
         nameLabel.setTextAlignment(GraphicalElements::TextAlignment::center);
 
         name.setPosition(Math::CoordF(GM->getWindowSize().x / 2.0f + nameLabel.getSize().x - 200, GM->getWindowSize().y / 2 + 100 - nameLabel.getSize().y));
         name.setFontSize(40);
+        name.setTextColor(77.6, 68.2, 44.3);
         name.setTextAlignment(GraphicalElements::TextAlignment::center);
+
     }
 
     GameOverMenu::~GameOverMenu() { }

@@ -12,6 +12,7 @@ namespace Menus {
     class SettingsMenu : public Menu, public States::State {
     private:
         States::Game* pGame;
+        unsigned int renderDistance;
 
     public:
         SettingsMenu(States::Game* pG = nullptr);
@@ -25,6 +26,8 @@ namespace Menus {
         void resetState();
 
         void exec();
+
+        void saveSettings();
     };
 
 }

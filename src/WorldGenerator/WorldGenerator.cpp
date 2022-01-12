@@ -1,5 +1,7 @@
 #include "WorldGenerator/WorldGenerator.h"
 
+#define SETTINGS_FILE "./saves/Settings.txt"
+
 #include "Entities/Characters/Enemies/Hyena.h"
 #include "Entities/Characters/Enemies/Snake.h"
 #include "Entities/Characters/Player.h"
@@ -8,6 +10,7 @@
 #include "Entities/Obstacles/Platform.h"
 #include "Entities/Obstacles/Quicksand.h"
 
+#include <fstream>
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
@@ -25,6 +28,7 @@ namespace WorldGenerator {
         lowerBound.y = screenSize.y;
 
         resetToOrigin();
+        setRenderDistance();
     }
 
     WorldGenerator::~WorldGenerator() {
@@ -127,8 +131,18 @@ namespace WorldGenerator {
         }
     }
 
-    void WorldGenerator::setRenderDistance(const unsigned int renderDistance) {
-        this->renderDistance = renderDistance;
+    void WorldGenerator::setRenderDistance() {
+        std::ifstream file;
+
+        file.open(SETTINGS_FILE, std::ios::binary | std::ios::in);
+
+        if (!file) {
+            renderDistance = 30;
+            return;
+        }
+
+        file >> renderDistance;
+        file.close();
     }
 
     void WorldGenerator::resetToOrigin() {

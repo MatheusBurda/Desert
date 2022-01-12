@@ -2,7 +2,7 @@
 
 #define COIN_SIZE_WIDTH 30
 #define COIN_SIZE_HEIGHT 30
-#define COIN_PATH "./assets/etc/Coin.png"
+#define COIN_PATH "./assets/Loot/Coin.png"
 
 namespace Entities {
 

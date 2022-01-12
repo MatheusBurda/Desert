@@ -27,7 +27,7 @@ namespace WorldGenerator {
 
         void explodeCoins(Math::CoordF position);
 
-        void setRenderDistance(const unsigned int renderDistance);
+        void setRenderDistance();
 
         void resetToOrigin();
     };
