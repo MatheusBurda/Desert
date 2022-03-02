@@ -3,7 +3,7 @@
 A C++ Object Oriented game made using the SFML library, for a series of videos giving insights to future students of Programing Techniques (Técnicas de Programação) course at UTFPR.
 The complete playlist is avaiable [here](https://youtube.com/playlist?list=PLSPev71NbUEBIQlT2QCd-gN6l_mNVw1cJ).
 
-![Desert](./assets/etc/Desert.gif)
+![Desert](https://github.com/MatheusBurda/Desert/blob/master/assets/etc/Desert.gif)
 
 
 ## Playing
